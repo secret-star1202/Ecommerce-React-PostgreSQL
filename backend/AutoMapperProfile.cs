@@ -2,9 +2,7 @@
 using AutoMapper;
 using backend.DTOs.Product;
 using backend.Models;
-
 namespace backend;
-
 public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
@@ -12,9 +10,6 @@ public class AutoMapperProfile : Profile
         CreateMap<Product, GetProductDTO>();
         CreateMap<AddProductDTO, Product>();
         CreateMap<UpdateProductDTO, Product>();
-
-
-
     }
 }
 
