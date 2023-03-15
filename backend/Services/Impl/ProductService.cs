@@ -68,7 +68,7 @@ public class ProductService : IProductService
             product.Description = updatedProduct.Description;
             product.Image = updatedProduct.Image;
             product.CategoryId = updatedProduct.CategoryId;
-            product.Category = updatedProduct.Category;
+           // product.Category = updatedProduct.Category;
 
             await _context.SaveChangesAsync();
             serviceResponse.Data = _mapper.Map<GetProductDTO>(product);

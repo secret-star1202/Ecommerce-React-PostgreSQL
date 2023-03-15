@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using backend.Models;
-using backend.DTOs.Product;
+using backend.DTOs.Category;
 using backend.Services;
 
 namespace backend.Controllers;
@@ -23,28 +23,28 @@ public class CategoryController : ControllerBase
     }
 
     [HttpGet("GetAll")]
-    public async Task<ActionResult<ServiceResponse<List<Category>>>> Get()
+    public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> Get()
     {
         return Ok(await _categoryService.GetAllCategories());
     }
 
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ServiceResponse<List<Category>>>> GetSingle(int id)
+    public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> GetSingle(int id)
     {
         return Ok(await _categoryService.GetCategoryById(id));
     }
 
 
     [HttpPost]
-    public async Task<ActionResult<ServiceResponse<List<Category>>>> AddCategory(Category newCategory)
+    public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> AddCategory(AddCategoryDTO newCategory)
     {
         return Ok(await _categoryService.AddCategory(newCategory));
     }
 
 
     [HttpPut]
-    public async Task<ActionResult<ServiceResponse<List<Category>>>> UpdateProduct(Category updatedCategory)
+    public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> UpdateProduct(UpdateCategoryDTO updatedCategory)
     {
         var response = await _categoryService.UpdateCategory(updatedCategory);
         if (response.Data is null)
@@ -57,7 +57,7 @@ public class CategoryController : ControllerBase
 
 
     [HttpDelete("{id}")]
-    public async Task<ActionResult<ServiceResponse<Category>>> DeleteCategory(int id)
+    public async Task<ActionResult<ServiceResponse<GetCategoryDTO>>> DeleteCategory(int id)
     {
         var response = await _categoryService.DeleteCategory(id);
         if (response.Data is null)

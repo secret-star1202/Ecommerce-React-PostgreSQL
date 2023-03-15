@@ -3,6 +3,7 @@ using System.Dynamic;
 using AutoMapper;
 using backend.DTOs.Product;
 using backend.DTOs.User;
+using backend.DTOs.Category;
 using backend.Models;
 namespace backend;
 public class AutoMapperProfile : Profile
@@ -15,6 +16,9 @@ public class AutoMapperProfile : Profile
         CreateMap<User, GetUserDTO>();
         CreateMap<AddUserDTO, User>();
         CreateMap<UpdateUserDTO, User>();
+        CreateMap<Category, GetCategoryDTO>();
+        CreateMap<AddCategoryDTO, Category>();
+        CreateMap<UpdateCategoryDTO, Category>();
 
   }
 }
