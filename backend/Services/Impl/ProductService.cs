@@ -3,55 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using backend.Data;
 using backend.DTOs.Product;
 using backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services;
 
 public class ProductService : IProductService
 
 {
-    private static List<Category> categories = new List<Category>
-    {
-        new Category{ Id=0,Name="Clothes"},
-        new Category{ Id=1,Name="Shoes"},
-        new Category{ Id=2,Name="Jewelry"}
-    };
-
-    private static List<Product> products = new List<Product>
-        {
-            new Product{Id=0,Name="Gucci",Price=100,Description="Gucci Description",Image="Gucci Image",CategoryId=0},
-            new Product{Id=1,Name="Chanel",Price=130,Description="Chanel Description",Image="Chanel Image",CategoryId=1},
-        };
     private readonly IMapper _mapper;
+    private readonly DataContext _context;
 
-    public ProductService(IMapper mapper)
+    public ProductService(IMapper mapper, DataContext context)
     {
         _mapper = mapper;
+        _context = context;
     }
 
     public async Task<ServiceResponse<List<GetProductDTO>>> AddProduct(AddProductDTO newProduct)
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
         var product = _mapper.Map<Product>(newProduct);
-        product.Id = products.Max(p => p.Id) + 1;
-        products.Add(product);
-        serviceResponse.Data = products.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+
+        _context.Products.Add(product);
+        await _context.SaveChangesAsync();
+
+        serviceResponse.Data = await _context.Products
+                    .Select(p => _mapper.Map<GetProductDTO>(p))
+                    .ToListAsync();
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<GetProductDTO>>> GetAllProducts()
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
-        serviceResponse.Data = products.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        var dbProducts = await _context.Products.ToListAsync();
+        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<GetProductDTO>> GetProductById(int id)
     {
         var serviceResponse = new ServiceResponse<GetProductDTO>();
-        var product = products.FirstOrDefault(p => p.Id == id);
-        serviceResponse.Data = _mapper.Map<GetProductDTO>(product);
+        var dbProduct = await _context.Products
+            .FirstOrDefaultAsync(p => p.Id == id);
+        serviceResponse.Data = _mapper.Map<GetProductDTO>(dbProduct);
         return serviceResponse;
     }
 
@@ -61,7 +59,7 @@ public class ProductService : IProductService
 
         try
         {
-            var product = products.FirstOrDefault(p => p.Id == updatedProduct.Id);
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == updatedProduct.Id);
             if (product is null)
                 throw new Exception($"Product with Id '{updatedProduct.Id}' not found.");
 
@@ -69,8 +67,10 @@ public class ProductService : IProductService
             product.Price = updatedProduct.Price;
             product.Description = updatedProduct.Description;
             product.Image = updatedProduct.Image;
+            product.CategoryId = updatedProduct.CategoryId;
             product.Category = updatedProduct.Category;
 
+            await _context.SaveChangesAsync();
             serviceResponse.Data = _mapper.Map<GetProductDTO>(product);
         }
         catch (Exception ex)
@@ -89,13 +89,16 @@ public class ProductService : IProductService
 
         try
         {
-            var product = products.First(p => p.Id == id);
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (product is null)
                 throw new Exception($"Product with Id '{id}' not found.");
 
-            products.Remove(product);
+            _context.Products.Remove(product);
 
-            serviceResponse.Data = products.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+            await _context.SaveChangesAsync();
+
+            serviceResponse.Data = await _context.Products.Select(p => _mapper.Map<GetProductDTO>(p)).ToListAsync();
+
         }
         catch (Exception ex)
         {

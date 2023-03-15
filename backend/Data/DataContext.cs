@@ -6,12 +6,22 @@ namespace backend.Data;
 
 public class DataContext : DbContext
 {
-    public DataContext(DbContextOptions<DbContext> options) : base(options)
-    {
+    
+    protected readonly IConfiguration Configuration;
 
+    public DataContext(IConfiguration configuration)
+    {
+        Configuration = configuration;
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
+    {
+        // connect to postgres with connection string from app settings
+        options.UseNpgsql(Configuration.GetConnectionString("WebApiDatabase"));
     }
 
     public DbSet<Product> Products => Set<Product>();
     public DbSet<Category> Categories => Set<Category>();
+
 
 }

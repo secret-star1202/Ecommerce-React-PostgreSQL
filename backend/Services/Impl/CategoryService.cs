@@ -3,48 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using backend.DTOs.Product;
+using backend.Data;
 using backend.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services;
 
 public class CategoryService : ICategoryService
 {
-    private static List<Category> categories = new List<Category>
-        {
-            new Category{Id=0,Name="Clothes"},
-            new Category{Id=1,Name="Shoes"},
-            new Category{Id=2,Name="Jewelry"}
-        };
     private readonly IMapper _mapper;
+    private readonly DataContext _context;
 
-    public CategoryService(IMapper mapper)
+    public CategoryService(IMapper mapper, DataContext context)
     {
         _mapper = mapper;
+        _context = context;
     }
 
     public async Task<ServiceResponse<List<Category>>> AddCategory(Category newCategory)
     {
         var serviceResponse = new ServiceResponse<List<Category>>();
         var category = _mapper.Map<Category>(newCategory);
-        category.Id = categories.Max(c => c.Id) + 1;
-        categories.Add(category);
-        serviceResponse.Data = categories.Select(c => _mapper.Map<Category>(c)).ToList();
+
+        _context.Categories.Add(category);
+        await _context.SaveChangesAsync();
+
+        serviceResponse.Data = await _context.Categories
+                    .Select(c => _mapper.Map<Category>(c))
+                    .ToListAsync();
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<Category>>> GetAllCategories()
     {
         var serviceResponse = new ServiceResponse<List<Category>>();
-        serviceResponse.Data = categories.Select(c => _mapper.Map<Category>(c)).ToList();
+        var dbCategories = await _context.Categories.ToListAsync();
+        serviceResponse.Data = dbCategories.Select(c => _mapper.Map<Category>(c)).ToList();
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<Category>> GetCategoryById(int id)
     {
         var serviceResponse = new ServiceResponse<Category>();
-        var category = categories.FirstOrDefault(c => c.Id == id);
-        serviceResponse.Data = _mapper.Map<Category>(category);
+        var dbCategory = await _context.Categories
+            .FirstOrDefaultAsync(c => c.Id == id);
+        serviceResponse.Data = _mapper.Map<Category>(dbCategory);
         return serviceResponse;
     }
 
@@ -54,12 +57,13 @@ public class CategoryService : ICategoryService
 
         try
         {
-            var category = categories.FirstOrDefault(c => c.Id == updatedCategory.Id);
+            var category= await _context.Categories.FirstOrDefaultAsync(c => c.Id == updatedCategory.Id);
             if (category is null)
                 throw new Exception($"Category with Id '{updatedCategory.Id}' not found.");
 
-            category.Name = category.Name;
-      
+            category.Name = updatedCategory.Name;
+          
+            await _context.SaveChangesAsync();
             serviceResponse.Data = _mapper.Map<Category>(category);
         }
         catch (Exception ex)
@@ -78,13 +82,16 @@ public class CategoryService : ICategoryService
 
         try
         {
-            var category= categories.First(c => c.Id == id);
+            var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
             if (category is null)
                 throw new Exception($"Category with Id '{id}' not found.");
 
-            categories.Remove(category);
+            _context.Categories.Remove(category);
 
-            serviceResponse.Data = categories.Select(c => _mapper.Map<Category>(c)).ToList();
+            await _context.SaveChangesAsync();
+
+            serviceResponse.Data = await _context.Categories.Select(c => _mapper.Map<Category>(c)).ToListAsync();
+
         }
         catch (Exception ex)
         {
