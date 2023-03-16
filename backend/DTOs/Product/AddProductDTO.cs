@@ -3,7 +3,7 @@ using backend.Models;
 
 namespace backend.DTOs.Product;
 
-public class AddProductDTO
+public class AddProductDTO: BaseModel
 {
     public string? Name { get; set; }
     public float? Price { get; set; }

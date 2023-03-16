@@ -27,7 +27,7 @@ public class CategoryService : ICategoryService
         var serviceResponse = new ServiceResponse<List<GetCategoryDTO>>();
         var category = _mapper.Map<Category>(newCategory);
 
-        _context.Categories.Add(category);
+    _context.Categories.Add(category);
         await _context.SaveChangesAsync();
 
         serviceResponse.Data = await _context.Categories

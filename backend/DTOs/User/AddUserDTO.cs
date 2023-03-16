@@ -6,7 +6,7 @@ using backend.Models;
 
 namespace backend.DTOs.User
 {
-    public class AddUserDTO
+    public class AddUserDTO: BaseModel
     {
 	public string Name { get; set; } = string.Empty;
 	public string Email { get; set; } = string.Empty;
