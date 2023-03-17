@@ -73,4 +73,9 @@ public class ProductController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("{categoryId}/products")]
+    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> GetProductsByCategory(int categoryId)
+    {
+        return Ok(await _productService.GetProductsByCategory(categoryId));
+    }
 }

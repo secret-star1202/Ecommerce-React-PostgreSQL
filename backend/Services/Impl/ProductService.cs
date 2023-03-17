@@ -108,4 +108,12 @@ public class ProductService : IProductService
 
         return serviceResponse;
     }
+
+    public async Task<ServiceResponse<List<GetProductDTO>>> GetProductsByCategory(int categoryId)
+    {
+        var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
+        var dbProducts = await _context.Products.Where(p => p.CategoryId== categoryId).ToListAsync();
+        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        return serviceResponse;
+    }
 }
