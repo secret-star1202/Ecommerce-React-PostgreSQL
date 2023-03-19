@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using backend.Services;
+using backend.DTOs;
+using backend.Models;
+using backend.DTOs.Cart;
+
+namespace backend.Services;
+
+public interface ICartService
+{
+  Task<ServiceResponse<List<CartDTO>>> GetCart();
+  Task<ServiceResponse<CartDTO>> GetCartById(int id);
+  //Task<ServiceResponse<List<CartDTO>>> AddCategory(AddCategoryDTO newCategory);
+  //Task<ServiceResponse<CartDTO>> UpdateCategory(UpdateCategoryDTO updatedCategory);
+  //Task<ServiceResponse<List<CartDTO>>> DeleteCategory(int id);
+}
