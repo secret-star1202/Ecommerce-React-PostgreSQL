@@ -6,6 +6,7 @@ using AutoMapper;
 using backend.Data;
 using backend.DTOs.Product;
 using backend.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services;
@@ -147,6 +148,17 @@ public class ProductService : IProductService
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
         var dbProducts = await _context.Products.OrderByDescending(p => p.Price).ToListAsync();
+        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        return serviceResponse;
+    }
+
+    public async Task<ServiceResponse<List<GetProductDTO>>> Pagination(int pageNumber, int pageSize)
+    {
+        var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
+        var dbProducts = await _context.Products
+        .Skip((pageNumber - 1) * pageSize)
+        .Take(pageSize)
+        .ToListAsync();
         serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
         return serviceResponse;
     }

@@ -103,4 +103,9 @@ public class ProductController : ControllerBase
         return Ok(await _productService.SortPriceDESC());
     }
 
+    [HttpGet("GetAll/page")]
+    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> Pagination(int pageNumber, int pageSize)
+    {
+        return Ok(await _productService.Pagination(pageNumber,pageSize));
+    }
 }

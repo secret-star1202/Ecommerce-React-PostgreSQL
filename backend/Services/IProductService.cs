@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using backend.DTOs.Product;
 using backend.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services;
 
@@ -19,4 +21,5 @@ public interface IProductService
     Task<ServiceResponse<List<GetProductDTO>>> SortZA();
     Task<ServiceResponse<List<GetProductDTO>>> SortPriceASC();
     Task<ServiceResponse<List<GetProductDTO>>> SortPriceDESC();
+    Task<ServiceResponse<List<GetProductDTO>>> Pagination(int pageNumber, int pageSize);
 }
