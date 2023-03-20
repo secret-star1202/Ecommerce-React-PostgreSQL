@@ -55,4 +55,14 @@ public class CartItemService : ICartItemService
 
         return serviceResponse;
     }
+
+    public  async Task<ServiceResponse<CartItemDTO>> GetCartItemById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<ServiceResponse<List<CartItemDTO>>> AddCartItem(AddCartItemDTO newCartItem)
+    {
+        throw new NotImplementedException();
+    }
 }

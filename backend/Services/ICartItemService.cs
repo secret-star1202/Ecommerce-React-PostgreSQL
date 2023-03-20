@@ -11,9 +11,8 @@ namespace backend.Services;
 
 public interface ICartItemService
 {
-  Task<ServiceResponse<List<CartItemDTO>>> GetCartItems();
-//   Task<ServiceResponse<GetCategoryDTO>> GetCategoryById(int id);
-//   Task<ServiceResponse<List<GetCategoryDTO>>> AddCategory(AddCategoryDTO newCategory);
-//   Task<ServiceResponse<GetCategoryDTO>> UpdateCategory(UpdateCategoryDTO updatedCategory);
-  Task<ServiceResponse<List<CartItemDTO>>> DeleteCartItem(int id);
+    Task<ServiceResponse<List<CartItemDTO>>> GetCartItems();
+    Task<ServiceResponse<CartItemDTO>> GetCartItemById(int id);
+    Task<ServiceResponse<List<CartItemDTO>>> AddCartItem(AddCartItemDTO newCartItem);
+    Task<ServiceResponse<List<CartItemDTO>>> DeleteCartItem(int id);
 }

@@ -10,7 +10,6 @@ public class User : BaseModel
     public string Password { get; set; } = string.Empty;
     public string Avatar { get; set; } = string.Empty;
     public Role Role { get; set; } = Role.Admin;
-    public virtual ICollection<Cart>? Carts { get; set; }
-
+    public Cart? Cart { get; set; }
 }
 

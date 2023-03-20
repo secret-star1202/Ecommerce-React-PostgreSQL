@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using backend.Services;
 using backend.Models;
 using backend.DTOs.CartItem;
+using backend.DTOs.Category;
 
 namespace backend.Controllers;
 
@@ -21,13 +22,13 @@ public class CartItemController : ControllerBase
     _cartItemService = cartItemService;
   }
 
-  [HttpGet("GetAll")]
-  public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> Get()
-  {
-    return Ok(await _cartItemService.GetCartItems());
-  }
+    [HttpGet("GetAll")]
+    public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> Get()
+    {
+        return Ok(await _cartItemService.GetCartItems());
+    }
 
- [HttpDelete("{id}")]
+    [HttpDelete("{id}")]
     public async Task<ActionResult<ServiceResponse<CartItemDTO>>> DeleteCartItem(int id)
     {
         var response = await _cartItemService.DeleteCartItem(id);
@@ -37,6 +38,19 @@ public class CartItemController : ControllerBase
         }
 
         return Ok(response);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> GetSingle(int id)
+    {
+        return Ok(await _cartItemService.GetCartItemById(id));
+    }
+
+
+    [HttpPost]
+    public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> AddCategory(AddCartItemDTO newCartItem)
+    {
+        return Ok(await _cartItemService.AddCartItem(newCartItem));
     }
 
 }

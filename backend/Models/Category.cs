@@ -13,5 +13,4 @@ public class Category : BaseModel
 {
   public string? Name { get; set; }
   public IList<Product> Products { get; set; } = new List<Product>();
-
 }

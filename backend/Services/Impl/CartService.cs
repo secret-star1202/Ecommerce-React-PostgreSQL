@@ -22,20 +22,30 @@ public class CartService : ICartService
         _mapper = mapper;
         _context = context;
     }
+
+  
+    public async Task<ServiceResponse<List<CartDTO>>> AddToCart(CartDTO newCart)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<ServiceResponse<List<CartDTO>>> GetCart()
     {
-        var serviceResponse = new ServiceResponse<List<CartDTO>>();
-        var dbCarts = await _context.Carts.ToListAsync();
-        serviceResponse.Data = dbCarts.Select(c => _mapper.Map<CartDTO>(c)).ToList();
-        return serviceResponse;
+        throw new NotImplementedException();
     }
 
     public async Task<ServiceResponse<CartDTO>> GetCartById(int id)
     {
-        var serviceResponse = new ServiceResponse<CartDTO>();
-        var dbCart = await _context.Carts
-            .FirstOrDefaultAsync(c => c.Id == id);
-        serviceResponse.Data = _mapper.Map<CartDTO>(dbCart);
-        return serviceResponse;
+        throw new NotImplementedException();
+    }
+
+    public async Task<ServiceResponse<CartDTO>> GetCartByUserId(int userId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<ServiceResponse<List<CartDTO>>> RemoveCartItem(int cartItemId)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -12,4 +12,3 @@ public interface ICategoryService
     Task<ServiceResponse<GetCategoryDTO>> UpdateCategory(UpdateCategoryDTO updatedCategory);
     Task<ServiceResponse<List<GetCategoryDTO>>> DeleteCategory(int id);
 }
-
