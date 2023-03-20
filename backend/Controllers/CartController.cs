@@ -57,5 +57,11 @@ namespace backend.Controllers
 
             return Ok(response);
         }
+
+         [HttpPost]
+        public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> AddToCart(AddCartDTO newCart)
+        {
+        return Ok(await _cartService.AddToCart(newCart));
+        }
     }
 }

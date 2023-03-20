@@ -13,7 +13,7 @@ public interface ICartService
 {
   Task<ServiceResponse<List<CartDTO>>> GetCart();
   Task<ServiceResponse<CartDTO>> GetCartById(int id);
-  Task<ServiceResponse<List<CartDTO>>> AddToCart(CartDTO newCart);
+  Task<ServiceResponse<List<CartDTO>>> AddToCart(AddCartDTO newCart);
   Task<ServiceResponse<List<CartDTO>>> RemoveCartItem(int cartItemId);
   Task<ServiceResponse<CartDTO>> GetCartByUserId(int userId);
 

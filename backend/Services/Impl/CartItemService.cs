@@ -58,11 +58,24 @@ public class CartItemService : ICartItemService
 
     public  async Task<ServiceResponse<CartItemDTO>> GetCartItemById(int id)
     {
-        throw new NotImplementedException();
+         var serviceResponse = new ServiceResponse<CartItemDTO>();
+        var dbCartItem = await _context.CartItems
+            .FirstOrDefaultAsync(ci => ci.Id == id);
+        serviceResponse.Data = _mapper.Map<CartItemDTO>(dbCartItem);
+        return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<CartItemDTO>>> AddCartItem(AddCartItemDTO newCartItem)
     {
-        throw new NotImplementedException();
+        var serviceResponse = new ServiceResponse<List<CartItemDTO>>();
+        var cartItem = _mapper.Map<CartItem>(newCartItem);
+
+        _context.CartItems.Add(cartItem);
+        await _context.SaveChangesAsync();
+
+        serviceResponse.Data = await _context.CartItems
+                    .Select(p => _mapper.Map<CartItemDTO>(p))
+                    .ToListAsync();
+        return serviceResponse;
     }
 }

@@ -33,9 +33,6 @@ namespace backend.Migrations
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("numeric");
-
                     b.Property<DateTime>("UpdatedDateTime")
                         .HasColumnType("timestamp with time zone");
 
@@ -66,6 +63,9 @@ namespace backend.Migrations
 
                     b.Property<int>("ItemQuantity")
                         .HasColumnType("integer");
+
+                    b.Property<float?>("Price")
+                        .HasColumnType("real");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");

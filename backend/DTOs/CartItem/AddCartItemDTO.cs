@@ -5,4 +5,7 @@ public class AddCartItemDTO
 {    
     public int ProductId { get; set; }
     public int ItemQuantity { get; set; }   
+
+    public float? Price { get; set; } 
+
 }

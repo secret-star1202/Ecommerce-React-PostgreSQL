@@ -9,6 +9,5 @@ public class Cart : BaseModel
 {
     public int UserId { get; set; }
     public User? User { get; set; }
-    public List<CartItem> CartItems { get; set; } = null!;
-    public decimal Total { get; set; }
+    public List<CartItem> CartItems { get; set; } = new List<CartItem>();
 }
