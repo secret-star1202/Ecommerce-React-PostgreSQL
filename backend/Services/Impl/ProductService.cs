@@ -116,4 +116,38 @@ public class ProductService : IProductService
         serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
         return serviceResponse;
     }
+
+
+
+    public async Task<ServiceResponse<List<GetProductDTO>>> SortAZ()
+    {
+        var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
+        var dbProducts = await _context.Products.OrderBy(p => p.Name).ToListAsync();
+        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        return serviceResponse;
+    }
+
+    public async Task<ServiceResponse<List<GetProductDTO>>> SortZA()
+    {
+        var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
+        var dbProducts = await _context.Products.OrderByDescending(p => p.Name).ToListAsync();
+        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        return serviceResponse;
+    }
+
+    public async Task<ServiceResponse<List<GetProductDTO>>> SortPriceASC()
+    {
+        var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
+        var dbProducts = await _context.Products.OrderBy(p => p.Price).ToListAsync();
+        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        return serviceResponse;
+    }
+
+    public async Task<ServiceResponse<List<GetProductDTO>>> SortPriceDESC()
+    {
+        var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
+        var dbProducts = await _context.Products.OrderByDescending(p => p.Price).ToListAsync();
+        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        return serviceResponse;
+    }
 }

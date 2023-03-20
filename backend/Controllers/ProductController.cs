@@ -78,4 +78,29 @@ public class ProductController : ControllerBase
     {
         return Ok(await _productService.GetProductsByCategory(categoryId));
     }
+
+    [HttpGet("GetAll/AZ")]
+    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortAZ()
+    {
+        return Ok(await _productService.SortAZ());
+    }
+
+    [HttpGet("GetAll/ZA")]
+    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortZA()
+    {
+        return Ok(await _productService.SortZA());
+    }
+
+    [HttpGet("GetAll/price-asc")]
+    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortPriceASC()
+    {
+        return Ok(await _productService.SortPriceASC());
+    }
+
+    [HttpGet("GetAll/price-desc")]
+    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortPriceDESC()
+    {
+        return Ok(await _productService.SortPriceDESC());
+    }
+
 }

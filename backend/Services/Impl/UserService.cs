@@ -29,10 +29,6 @@ public class UserService : IUserService
 
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
-
-        serviceResponse.Data = await _context.Users
-                    .Select(u => _mapper.Map<GetUserDTO>(u))
-                    .ToListAsync();
         return serviceResponse;
     }
 

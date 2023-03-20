@@ -15,4 +15,8 @@ public interface IProductService
     Task<ServiceResponse<GetProductDTO>> UpdateProduct(UpdateProductDTO updatedProduct);
     Task<ServiceResponse<List<GetProductDTO>>> DeleteProduct(int id);
     Task<ServiceResponse<List<GetProductDTO>>> GetProductsByCategory(int categoryId);
+    Task<ServiceResponse<List<GetProductDTO>>> SortAZ();
+    Task<ServiceResponse<List<GetProductDTO>>> SortZA();
+    Task<ServiceResponse<List<GetProductDTO>>> SortPriceASC();
+    Task<ServiceResponse<List<GetProductDTO>>> SortPriceDESC();
 }
