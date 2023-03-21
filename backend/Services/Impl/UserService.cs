@@ -58,9 +58,17 @@ public class UserService : IUserService
     public async Task<ServiceResponse<GetUserDTO>> GetUserById(int id)
     {
         var serviceResponse = new ServiceResponse<GetUserDTO>();
-        var dbUser = await _context.Users
+        try
+        {
+            var dbUser = await _context.Users
             .FirstOrDefaultAsync(u => u.Id == id);
-        serviceResponse.Data = _mapper.Map<GetUserDTO>(dbUser);
+            serviceResponse.Data = _mapper.Map<GetUserDTO>(dbUser);
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
@@ -115,7 +123,6 @@ public class UserService : IUserService
             serviceResponse.Success = false;
             serviceResponse.Message = ex.Message;
         }
-
         return serviceResponse;
     }
 }

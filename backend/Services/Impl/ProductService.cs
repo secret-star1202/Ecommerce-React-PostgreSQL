@@ -26,31 +26,55 @@ public class ProductService : IProductService
     public async Task<ServiceResponse<List<GetProductDTO>>> AddProduct(AddProductDTO newProduct)
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
-        var product = _mapper.Map<Product>(newProduct);
+        try
+        {
+            var product = _mapper.Map<Product>(newProduct);
 
-        _context.Products.Add(product);
-        await _context.SaveChangesAsync();
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
 
-        serviceResponse.Data = await _context.Products
+            serviceResponse.Data = await _context.Products
                     .Select(p => _mapper.Map<GetProductDTO>(p))
                     .ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<GetProductDTO>>> GetAllProducts()
     {
-        var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
-        var dbProducts = await _context.Products.ToListAsync();
-        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        try
+        {
+            var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
+            var dbProducts = await _context.Products.ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<GetProductDTO>> GetProductById(int id)
     {
-        var serviceResponse = new ServiceResponse<GetProductDTO>();
-        var dbProduct = await _context.Products
+        try
+        {
+            var serviceResponse = new ServiceResponse<GetProductDTO>();
+            var dbProduct = await _context.Products
             .FirstOrDefaultAsync(p => p.Id == id);
-        serviceResponse.Data = _mapper.Map<GetProductDTO>(dbProduct);
+            serviceResponse.Data = _mapper.Map<GetProductDTO>(dbProduct);
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
