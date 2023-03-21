@@ -28,9 +28,9 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> Get()
+    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> Get(string sortBy)
     {
-        return Ok(await _productService.GetAllProducts());
+        return Ok(await _productService.GetAllProducts(sortBy));
     }
 
 
@@ -79,29 +79,6 @@ public class ProductController : ControllerBase
         return Ok(await _productService.GetProductsByCategory(categoryId));
     }
 
-    [HttpGet("AZ")]
-    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortAZ()
-    {
-        return Ok(await _productService.SortAZ());
-    }
-
-    [HttpGet("ZA")]
-    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortZA()
-    {
-        return Ok(await _productService.SortZA());
-    }
-
-    [HttpGet("price-asc")]
-    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortPriceASC()
-    {
-        return Ok(await _productService.SortPriceASC());
-    }
-
-    [HttpGet("price-desc")]
-    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortPriceDESC()
-    {
-        return Ok(await _productService.SortPriceDESC());
-    }
 
     [HttpGet("pagination")]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> Pagination(int pageNumber, int pageSize)
