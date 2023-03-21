@@ -25,18 +25,33 @@ public class UserService : IUserService
     public async Task<ServiceResponse<List<GetUserDTO>>> AddUser(AddUserDTO newUser)
     {
         var serviceResponse = new ServiceResponse<List<GetUserDTO>>();
-        var user = _mapper.Map<User>(newUser);
-
-        _context.Users.Add(user);
+        try
+        {
+            var user = _mapper.Map<User>(newUser);
+            _context.Users.Add(user);
         await _context.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<GetUserDTO>>> GetAllUsers()
     {
         var serviceResponse = new ServiceResponse<List<GetUserDTO>>();
-        var dbUsers = await _context.Users.ToListAsync();
-        serviceResponse.Data = dbUsers.Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
+        try
+        {
+            var dbUsers = await _context.Users.ToListAsync();
+            serviceResponse.Data = dbUsers.Select(u => _mapper.Map<GetUserDTO>(u)).ToList();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 

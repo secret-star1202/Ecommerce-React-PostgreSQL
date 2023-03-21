@@ -113,8 +113,16 @@ public class ProductService : IProductService
     public async Task<ServiceResponse<List<GetProductDTO>>> GetProductsByCategory(int categoryId)
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
-        var dbProducts = await _context.Products.Where(p => p.CategoryId== categoryId).ToListAsync();
-        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        try
+        {
+            var dbProducts = await _context.Products.Where(p => p.CategoryId== categoryId).ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
@@ -123,43 +131,83 @@ public class ProductService : IProductService
     public async Task<ServiceResponse<List<GetProductDTO>>> SortAZ()
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
-        var dbProducts = await _context.Products.OrderBy(p => p.Name).ToListAsync();
-        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        try
+        {
+            var dbProducts = await _context.Products.OrderBy(p => p.Name).ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<GetProductDTO>>> SortZA()
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
-        var dbProducts = await _context.Products.OrderByDescending(p => p.Name).ToListAsync();
-        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        try
+        {
+            var dbProducts = await _context.Products.OrderByDescending(p => p.Name).ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<GetProductDTO>>> SortPriceASC()
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
-        var dbProducts = await _context.Products.OrderBy(p => p.Price).ToListAsync();
-        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        try
+        {
+            var dbProducts = await _context.Products.OrderBy(p => p.Price).ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<GetProductDTO>>> SortPriceDESC()
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
-        var dbProducts = await _context.Products.OrderByDescending(p => p.Price).ToListAsync();
-        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        try
+        {
+            var dbProducts = await _context.Products.OrderByDescending(p => p.Price).ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
     public async Task<ServiceResponse<List<GetProductDTO>>> Pagination(int pageNumber, int pageSize)
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
-        var dbProducts = await _context.Products
-        .Skip((pageNumber - 1) * pageSize)
-        .Take(pageSize)
-        .ToListAsync();
-        serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        try
+        {
+            var dbProducts = await _context.Products
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 }

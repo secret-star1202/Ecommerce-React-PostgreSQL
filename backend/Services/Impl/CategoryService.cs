@@ -25,14 +25,22 @@ public class CategoryService : ICategoryService
     public async Task<ServiceResponse<List<GetCategoryDTO>>> AddCategory(AddCategoryDTO newCategory)
     {
         var serviceResponse = new ServiceResponse<List<GetCategoryDTO>>();
-        var category = _mapper.Map<Category>(newCategory);
+        try
+        {
+            var category = _mapper.Map<Category>(newCategory);
 
-    _context.Categories.Add(category);
-        await _context.SaveChangesAsync();
+            _context.Categories.Add(category);
+            await _context.SaveChangesAsync();
 
-        serviceResponse.Data = await _context.Categories
+            serviceResponse.Data = await _context.Categories
                     .Select(c => _mapper.Map<GetCategoryDTO>(c))
                     .ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 
@@ -47,9 +55,17 @@ public class CategoryService : ICategoryService
     public async Task<ServiceResponse<GetCategoryDTO>> GetCategoryById(int id)
     {
         var serviceResponse = new ServiceResponse<GetCategoryDTO>();
-        var dbCategory = await _context.Categories
+        try
+        {
+            var dbCategory = await _context.Categories
             .FirstOrDefaultAsync(c => c.Id == id);
-        serviceResponse.Data = _mapper.Map<GetCategoryDTO>(dbCategory);
+            serviceResponse.Data = _mapper.Map<GetCategoryDTO>(dbCategory);
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
         return serviceResponse;
     }
 

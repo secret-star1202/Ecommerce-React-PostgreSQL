@@ -39,7 +39,7 @@ namespace backend.Controllers
 
 
 
-        [HttpGet("{userId}/cart-items")]
+        [HttpGet("user/{userId}")]
         public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> GetCartByUserId(int userId)
         {
             return Ok(await _cartService.GetCartByUserId(userId));
@@ -59,9 +59,14 @@ namespace backend.Controllers
         }
 
          [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> AddToCart(AddCartDTO newCart)
+        public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> CreateCart(int userId)
         {
-        return Ok(await _cartService.AddToCart(newCart));
+            return Ok(await _cartService.CreateCart(userId));
         }
+
+        // public async Task<ServiceResponse<List<CartDTO>>> AddItemToCart(int cartId, CartItem cartItem)
+        // {
+        //     return Ok(await _cartService.AddItemToCart(cartId,cartItem));
+        // }
     }
 }
