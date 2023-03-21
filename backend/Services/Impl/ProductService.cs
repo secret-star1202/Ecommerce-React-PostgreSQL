@@ -47,9 +47,9 @@ public class ProductService : IProductService
 
     public async Task<ServiceResponse<List<GetProductDTO>>> GetAllProducts()
     {
+        var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
         try
         {
-            var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
             var dbProducts = await _context.Products.ToListAsync();
             serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
         }
@@ -63,9 +63,9 @@ public class ProductService : IProductService
 
     public async Task<ServiceResponse<GetProductDTO>> GetProductById(int id)
     {
+        var serviceResponse = new ServiceResponse<GetProductDTO>();
         try
         {
-            var serviceResponse = new ServiceResponse<GetProductDTO>();
             var dbProduct = await _context.Products
             .FirstOrDefaultAsync(p => p.Id == id);
             serviceResponse.Data = _mapper.Map<GetProductDTO>(dbProduct);
@@ -81,7 +81,6 @@ public class ProductService : IProductService
     public async Task<ServiceResponse<GetProductDTO>> UpdateProduct(UpdateProductDTO updatedProduct)
     {
         var serviceResponse = new ServiceResponse<GetProductDTO>();
-
         try
         {
             var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == updatedProduct.Id);
