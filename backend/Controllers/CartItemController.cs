@@ -12,7 +12,7 @@ using backend.DTOs.Category;
 
 namespace backend.Controllers;
 
-[Route("[controller]")]
+[Route("api/v1/[controller]s")]
 public class CartItemController : ControllerBase
 {
   private readonly ICartItemService _cartItemService;
@@ -22,8 +22,8 @@ public class CartItemController : ControllerBase
     _cartItemService = cartItemService;
   }
 
-    [HttpGet("GetAll")]
-    public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> Get()
+    [HttpGet()]
+    public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> GetAll()
     {
         return Ok(await _cartItemService.GetCartItems());
     }
@@ -47,7 +47,7 @@ public class CartItemController : ControllerBase
     }
 
 
-    [HttpPost]
+    [HttpPost()]
     public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> AddCategory(AddCartItemDTO newCartItem)
     {
         return Ok(await _cartItemService.AddCartItem(newCartItem));

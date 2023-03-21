@@ -16,7 +16,7 @@ namespace backend.Controllers;
 
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]s")]
 public class UserController : ControllerBase
 {
 
@@ -27,7 +27,7 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [HttpGet("GetAll")]
+    [HttpGet()]
     public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> Get()
     {
         return Ok(await _userService.GetAllUsers());
@@ -41,14 +41,14 @@ public class UserController : ControllerBase
     }
 
 
-    [HttpPost]
+    [HttpPost()]
     public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> AddUser(AddUserDTO newUser)
     {
         return Ok(await _userService.AddUser(newUser));
     }
 
 
-    [HttpPut]
+    [HttpPut()]
     public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> UpdateUser(UpdateUserDTO updatedUser)
     {
         var response = await _userService.UpdateUser(updatedUser);

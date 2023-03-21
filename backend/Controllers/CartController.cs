@@ -14,7 +14,7 @@ using backend.Services.Impl;
 
 namespace backend.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/v1/[controller]s")]
     public class CartController : ControllerBase
     {
         private readonly ICartService _cartService;
@@ -24,8 +24,8 @@ namespace backend.Controllers
             _cartService = cartService;
         }
 
-        [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> Get()
+        [HttpGet()]
+        public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> GetAll()
         {
             return Ok(await _cartService.GetCart());
         }
@@ -39,7 +39,7 @@ namespace backend.Controllers
 
 
 
-        [HttpGet("user/{userId}")]
+        [HttpGet("{userId}")]
         public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> GetCartByUserId(int userId)
         {
             return Ok(await _cartService.GetCartByUserId(userId));

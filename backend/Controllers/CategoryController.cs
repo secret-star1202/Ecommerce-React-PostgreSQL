@@ -12,7 +12,7 @@ using backend.Services;
 namespace backend.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]s")]
 public class CategoryController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
@@ -22,8 +22,8 @@ public class CategoryController : ControllerBase
         _categoryService = categoryService;
     }
 
-    [HttpGet("GetAll")]
-    public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> Get()
+    [HttpGet()]
+    public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> GetAll()
     {
         return Ok(await _categoryService.GetAllCategories());
     }
@@ -36,14 +36,14 @@ public class CategoryController : ControllerBase
     }
 
 
-    [HttpPost]
+    [HttpPost()]
     public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> AddCategory(AddCategoryDTO newCategory)
     {
         return Ok(await _categoryService.AddCategory(newCategory));
     }
 
 
-    [HttpPut]
+    [HttpPut()]
     public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> UpdateProduct(UpdateCategoryDTO updatedCategory)
     {
         var response = await _categoryService.UpdateCategory(updatedCategory);

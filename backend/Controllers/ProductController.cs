@@ -16,7 +16,7 @@ namespace backend.Controllers;
 
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/v1/[controller]s")]
 public class ProductController : ControllerBase
 {
 
@@ -27,7 +27,7 @@ public class ProductController : ControllerBase
         _productService = productService;
     }
 
-    [HttpGet("GetAll")]
+    [HttpGet()]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> Get()
     {
         return Ok(await _productService.GetAllProducts());
@@ -41,14 +41,14 @@ public class ProductController : ControllerBase
     }
 
 
-    [HttpPost]
+    [HttpPost()]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> AddProduct(AddProductDTO newProduct)
     {
         return Ok(await _productService.AddProduct(newProduct));
     }
 
 
-    [HttpPut]
+    [HttpPut()]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> UpdateProduct(UpdateProductDTO updatedProduct)
     {
         var response = await _productService.UpdateProduct(updatedProduct);
@@ -79,31 +79,31 @@ public class ProductController : ControllerBase
         return Ok(await _productService.GetProductsByCategory(categoryId));
     }
 
-    [HttpGet("GetAll/AZ")]
+    [HttpGet("AZ")]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortAZ()
     {
         return Ok(await _productService.SortAZ());
     }
 
-    [HttpGet("GetAll/ZA")]
+    [HttpGet("ZA")]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortZA()
     {
         return Ok(await _productService.SortZA());
     }
 
-    [HttpGet("GetAll/price-asc")]
+    [HttpGet("price-asc")]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortPriceASC()
     {
         return Ok(await _productService.SortPriceASC());
     }
 
-    [HttpGet("GetAll/price-desc")]
+    [HttpGet("price-desc")]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> SortPriceDESC()
     {
         return Ok(await _productService.SortPriceDESC());
     }
 
-    [HttpGet("GetAll/page")]
+    [HttpGet("pagination")]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> Pagination(int pageNumber, int pageSize)
     {
         return Ok(await _productService.Pagination(pageNumber,pageSize));
