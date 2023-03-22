@@ -11,6 +11,6 @@ public class AddCartItemDTO
     public GetProductDTO? Product { get; set; }
     public int CartId { get; set; }
     public CartDTO? Cart { get; set; }
-    public float? Price { get; set; } 
+    public decimal? Price { get; set; } 
 
 }

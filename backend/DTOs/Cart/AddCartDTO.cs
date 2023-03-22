@@ -7,7 +7,6 @@ public class AddCartDTO
 {
     public decimal TotalPrice { get; set; }
     public int UserId { get; set; }
-    // public GetUserDTO? User { get; set; }
     public List<CartItemDTO>? CartItems { get; set; } 
 }
 
