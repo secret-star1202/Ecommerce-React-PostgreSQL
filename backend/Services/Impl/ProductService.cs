@@ -50,7 +50,7 @@ public class ProductService : IProductService
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
         try
         {
-            IQueryable<Product> query = _context.Products;
+            IQueryable<Product> query =_context.Products;
 
             switch (sortBy)
             {
@@ -67,7 +67,7 @@ public class ProductService : IProductService
                     query = query.OrderBy(p => p.Name);
                     break;
         }
-            serviceResponse.Data = query.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+            serviceResponse.Data = await query.Select(p => _mapper.Map<GetProductDTO>(p)).ToListAsync();
         }
         catch (Exception ex)
         {
