@@ -15,4 +15,3 @@ public interface IUserService
   Task<ServiceResponse<GetUserDTO>> UpdateUser(UpdateUserDTO updatedProduct);
   Task<ServiceResponse<List<GetUserDTO>>> DeleteUser(int id);
 }
-

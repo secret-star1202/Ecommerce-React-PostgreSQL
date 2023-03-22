@@ -12,5 +12,5 @@ namespace backend.Models;
 public class Category : BaseModel
 {
   public string? Name { get; set; }
-  public IList<Product> Products { get; set; } = new List<Product>();
+  public List<Product> Products { get; set; } = new List<Product>();
 }

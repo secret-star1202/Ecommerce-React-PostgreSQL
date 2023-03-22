@@ -135,34 +135,34 @@ public class CartService : ICartService
         return serviceResponse;
     }
 
-    public async Task<ServiceResponse<List<CartDTO>>> AddItemToCart(int cartId, CartItem cartItem)
-    {
-        var serviceResponse = new ServiceResponse<List<CartDTO>>();
-        try
-        {
-        var cart = _context.Carts
-            .Include(c => c.CartItems)
-            .FirstOrDefault(c => c.Id == cartId);
+    //public async Task<ServiceResponse<List<CartDTO>>> AddItemToCart(int cartId, CartItem cartItem)
+    //{
+    //    var serviceResponse = new ServiceResponse<List<CartDTO>>();
+    //    try
+    //    {
+    //    var cart = _context.Carts
+    //        .Include(c => c.CartItems)
+    //        .FirstOrDefault(c => c.Id == cartId);
 
-        if (cart == null)
-        {
-            throw new Exception("Cart not found");
-        }
-        cartItem.CartId = cartId;
-        cart.CartItems.Add(cartItem);
+    //    if (cart == null)
+    //    {
+    //        throw new Exception("Cart not found");
+    //    }
+    //    cartItem.CartId = cartId;
+    //    cart.CartItems.Add(cartItem);
 
-        _context.CartItems.Add(cartItem);
-        _context.SaveChanges();
+    //    _context.CartItems.Add(cartItem);
+    //    _context.SaveChanges();
 
-        //UpdateCartTotalPrice(cartId);
-        }
-        catch (Exception ex)
-        {
-            serviceResponse.Success = false;
-            serviceResponse.Message = ex.Message;
-        }
-        return serviceResponse;
-    }
+    //    //UpdateCartTotalPrice(cartId);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        serviceResponse.Success = false;
+    //        serviceResponse.Message = ex.Message;
+    //    }
+    //    return serviceResponse;
+    //}
 
     // public void UpdateCartTotalPrice(int cartId) {
     //    var cart = _context.Carts
