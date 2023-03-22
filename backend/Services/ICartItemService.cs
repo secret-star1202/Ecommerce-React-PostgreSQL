@@ -14,7 +14,5 @@ public interface ICartItemService
 {
     Task<ServiceResponse<List<CartItemDTO>>> GetCartItems();
     Task<ServiceResponse<List<CartItemDTO>>> GetCartProductsByCartId(int cartId);
-    // Task<ServiceResponse<CartItemDTO>> GetCartItemById(int id);
-    // Task<ServiceResponse<List<CartItemDTO>>> AddCartItem(AddCartItemDTO newCartItem);
-    // Task<ServiceResponse<List<CartItemDTO>>> DeleteCartItem(int id);
+    Task<ServiceResponse<CartItemDTO>> GetCartItemById(int id);
 }

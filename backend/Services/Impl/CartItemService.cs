@@ -23,6 +23,7 @@ public class CartItemService : ICartItemService
         _mapper = mapper;
         _context = context;
     }
+
     public async Task<ServiceResponse<List<CartItemDTO>>> GetCartItems()
     {
         var serviceResponse = new ServiceResponse<List<CartItemDTO>>();
@@ -55,64 +56,20 @@ public class CartItemService : ICartItemService
         return serviceResponse;
     }
 
-    // public async Task<ServiceResponse<List<CartItemDTO>>> DeleteCartItem(int id)
-    // {
-    //     var serviceResponse = new ServiceResponse<List<CartItemDTO>>();
-    //     try
-    //     {
-    //         var cartItem = await _context.CartItems.FirstOrDefaultAsync(c => c.Id == id);
-    //         if (cartItem is null)
-    //             throw new Exception($"Cart item with Id '{id}' not found.");
+    public async Task<ServiceResponse<CartItemDTO>> GetCartItemById(int id)
+    {
+        var serviceResponse = new ServiceResponse<CartItemDTO>();
+        try
+        {
+            var dbCartItem = await _context.CartItems.FirstOrDefaultAsync(ci => ci.Id == id);
+            serviceResponse.Data = _mapper.Map<CartItemDTO>(dbCartItem);
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
+        return serviceResponse;
+    }
 
-    //         _context.CartItems.Remove(cartItem);
-
-    //         await _context.SaveChangesAsync();
-
-    //         serviceResponse.Data = await _context.CartItems.Select(c => _mapper.Map<CartItemDTO>(c)).ToListAsync();
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         serviceResponse.Success = false;
-    //         serviceResponse.Message = ex.Message;
-    //     }
-    //     return serviceResponse;
-    // }
-
-    // public  async Task<ServiceResponse<CartItemDTO>> GetCartItemById(int id)
-    // {
-    //     var serviceResponse = new ServiceResponse<CartItemDTO>();
-    //     try
-    //     {
-    //         var dbCartItem = await _context.CartItems.FirstOrDefaultAsync(ci => ci.Id == id);
-    //         serviceResponse.Data = _mapper.Map<CartItemDTO>(dbCartItem);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         serviceResponse.Success = false;
-    //         serviceResponse.Message = ex.Message;
-    //     }
-    //     return serviceResponse;
-    // }
-
-    // public async Task<ServiceResponse<List<CartItemDTO>>> AddCartItem(AddCartItemDTO newCartItem)
-    // {
-    //     var serviceResponse = new ServiceResponse<List<CartItemDTO>>();
-    //     try
-    //     {
-    //         var cartItem = _mapper.Map<CartItem>(newCartItem);
-
-    //         _context.CartItems.Add(cartItem);
-    //         await _context.SaveChangesAsync();
-
-    //         serviceResponse.Data = await _context.CartItems
-    //                 .Select(p => _mapper.Map<CartItemDTO>(p))
-    //                 .ToListAsync();
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         serviceResponse.Success = false;
-    //         serviceResponse.Message = ex.Message;
-    //     }
-    //     return serviceResponse;
-    // }
 }

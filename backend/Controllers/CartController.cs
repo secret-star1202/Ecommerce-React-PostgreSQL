@@ -35,24 +35,5 @@ namespace backend.Controllers
         {
             return Ok(await _cartService.GetCartByUserId(userId));
         }
-
-        [HttpPost("{userId}/cart-items")]
-        public async Task<ActionResult<ServiceResponse<CartDTO>>> AddCartItemToUserCart(int userId, int cartItemId)
-        {
-            return Ok(await _cartService.AddCartItemToUserCart(userId,cartItemId)); 
-        }
-
-        // [HttpDelete("{id}")]
-        // public async Task<ActionResult<ServiceResponse<CartDTO>>> DeleteCart(int id)
-        // {
-        //     var response = await _cartService.RemoveCartItem(id);
-        //     if (response.Data is null)
-        //     {
-        //         return NotFound(response);
-        //     }
-
-        //     return Ok(response);
-        // }
-
     }
 }
