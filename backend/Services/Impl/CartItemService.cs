@@ -9,6 +9,7 @@ using backend.Data;
 using backend.Models;
 using backend.DTOs.CartItem;
 using Microsoft.EntityFrameworkCore;
+using backend.DTOs.Product;
 
 namespace backend.Services.Impl;
 
@@ -29,6 +30,22 @@ public class CartItemService : ICartItemService
         {
             var dbCartItems = await _context.CartItems.ToListAsync();
             serviceResponse.Data = dbCartItems.Select(c => _mapper.Map<CartItemDTO>(c)).ToList();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
+        return serviceResponse;
+    }
+
+    public async Task<ServiceResponse<List<CartItemDTO>>> GetCartProductsByCartId(int cartId)
+    {
+        var serviceResponse = new ServiceResponse<List<CartItemDTO>>();
+        try
+        {
+            var dbCartItems = await _context.CartItems.Where(ci => ci.CartId == cartId).ToListAsync();
+            serviceResponse.Data = dbCartItems.Select(ci => _mapper.Map<CartItemDTO>(ci)).ToList();
         }
         catch (Exception ex)
         {

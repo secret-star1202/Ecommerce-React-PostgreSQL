@@ -24,7 +24,41 @@ public class CartService : ICartService
         _context = context;
     }
 
-  
+    public async Task<ServiceResponse<CartDTO>> GetCartById(int id)
+    {
+        var serviceResponse = new ServiceResponse<CartDTO>();
+        try
+        {
+            var dbCart = await _context.Carts
+            .FirstOrDefaultAsync(c => c.Id == id);
+            serviceResponse.Data = _mapper.Map<CartDTO>(dbCart);
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
+        return serviceResponse;
+    }
+
+    public async Task<ServiceResponse<CartDTO>> GetCartByUserId(int userId)
+    {
+        var serviceResponse = new ServiceResponse<CartDTO>();
+        try
+        {
+        var dbCart = await _context.Carts
+            .Include(c => c.CartItems)
+            .FirstOrDefaultAsync(c => c.UserId == userId);
+        serviceResponse.Data = _mapper.Map<CartDTO>(dbCart);
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
+        return serviceResponse;
+    }
+
     // public async Task<ServiceResponse<List<CartDTO>>> CreateCart(int userId)
     // {
     //     var serviceResponse = new ServiceResponse<List<CartDTO>>();
@@ -73,41 +107,6 @@ public class CartService : ICartService
     //     }
     //     return serviceResponse;
     // }
-
-    // public async Task<ServiceResponse<CartDTO>> GetCartById(int id)
-    // {
-    //     var serviceResponse = new ServiceResponse<CartDTO>();
-    //     try
-    //     {
-    //         var dbCart = await _context.Carts
-    //         .FirstOrDefaultAsync(c => c.Id == id);
-    //         serviceResponse.Data = _mapper.Map<CartDTO>(dbCart);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         serviceResponse.Success = false;
-    //         serviceResponse.Message = ex.Message;
-    //     }
-    //     return serviceResponse;
-    // }
-
-    public async Task<ServiceResponse<CartDTO>> GetCartByUserId(int userId)
-    {
-        var serviceResponse = new ServiceResponse<CartDTO>();
-        try
-        {
-        var dbCart = await _context.Carts
-            .Include(c => c.CartItems)
-            .FirstOrDefaultAsync(c => c.UserId == userId);
-        serviceResponse.Data = _mapper.Map<CartDTO>(dbCart);
-        }
-        catch (Exception ex)
-        {
-            serviceResponse.Success = false;
-            serviceResponse.Message = ex.Message;
-        }
-        return serviceResponse;
-    }
 
     // public async Task<ServiceResponse<List<CartDTO>>> RemoveCartItem(int cartItemId)
     // {

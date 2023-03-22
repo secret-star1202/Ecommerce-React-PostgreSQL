@@ -28,6 +28,12 @@ public class CartItemController : ControllerBase
         return Ok(await _cartItemService.GetCartItems());
     }
 
+    [HttpGet("{cartId}/products")]
+    public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> GetCartProductsByCartId(int cartId)
+    {
+        return Ok(await _cartItemService.GetCartProductsByCartId(cartId));
+    }
+
     // [HttpDelete("{id}")]
     // public async Task<ActionResult<ServiceResponse<CartItemDTO>>> DeleteCartItem(int id)
     // {
