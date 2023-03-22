@@ -24,18 +24,18 @@ namespace backend.Controllers
             _cartService = cartService;
         }
 
-        [HttpGet()]
-        public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> GetAll()
-        {
-            return Ok(await _cartService.GetCart());
-        }
+        // [HttpGet()]
+        // public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> GetAll()
+        // {
+        //     return Ok(await _cartService.GetCart());
+        // }
 
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> GetSingle(int id)
-        {
-            return Ok(await _cartService.GetCartById(id));
-        }
+        // [HttpGet("{id}")]
+        // public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> GetSingle(int id)
+        // {
+        //     return Ok(await _cartService.GetCartById(id));
+        // }
 
 
 
@@ -46,23 +46,23 @@ namespace backend.Controllers
         }
 
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<ServiceResponse<CartDTO>>> DeleteCart(int id)
-        {
-            var response = await _cartService.RemoveCartItem(id);
-            if (response.Data is null)
-            {
-                return NotFound(response);
-            }
+        // [HttpDelete("{id}")]
+        // public async Task<ActionResult<ServiceResponse<CartDTO>>> DeleteCart(int id)
+        // {
+        //     var response = await _cartService.RemoveCartItem(id);
+        //     if (response.Data is null)
+        //     {
+        //         return NotFound(response);
+        //     }
 
-            return Ok(response);
-        }
+        //     return Ok(response);
+        // }
 
-         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> CreateCart(int userId)
-        {
-            return Ok(await _cartService.CreateCart(userId));
-        }
+        //  [HttpPost]
+        // public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> CreateCart(int userId)
+        // {
+        //     return Ok(await _cartService.CreateCart(userId));
+        // }
 
         // public async Task<ServiceResponse<List<CartDTO>>> AddItemToCart(int cartId, CartItem cartItem)
         // {

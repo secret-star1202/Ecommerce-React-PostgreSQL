@@ -28,29 +28,29 @@ public class CartItemController : ControllerBase
         return Ok(await _cartItemService.GetCartItems());
     }
 
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<ServiceResponse<CartItemDTO>>> DeleteCartItem(int id)
-    {
-        var response = await _cartItemService.DeleteCartItem(id);
-        if (response.Data is null)
-        {
-            return NotFound(response);
-        }
+    // [HttpDelete("{id}")]
+    // public async Task<ActionResult<ServiceResponse<CartItemDTO>>> DeleteCartItem(int id)
+    // {
+    //     var response = await _cartItemService.DeleteCartItem(id);
+    //     if (response.Data is null)
+    //     {
+    //         return NotFound(response);
+    //     }
 
-        return Ok(response);
-    }
+    //     return Ok(response);
+    // }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> GetSingle(int id)
-    {
-        return Ok(await _cartItemService.GetCartItemById(id));
-    }
+    // [HttpGet("{id}")]
+    // public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> GetSingle(int id)
+    // {
+    //     return Ok(await _cartItemService.GetCartItemById(id));
+    // }
 
 
-    [HttpPost()]
-    public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> AddCategory(AddCartItemDTO newCartItem)
-    {
-        return Ok(await _cartItemService.AddCartItem(newCartItem));
-    }
+    // [HttpPost()]
+    // public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> AddCategory(AddCartItemDTO newCartItem)
+    // {
+    //     return Ok(await _cartItemService.AddCartItem(newCartItem));
+    // }
 
 }
