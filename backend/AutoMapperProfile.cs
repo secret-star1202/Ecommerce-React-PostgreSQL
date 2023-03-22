@@ -27,6 +27,7 @@ public class AutoMapperProfile : Profile
         CreateMap<CartItemDTO, CartItem>();
         CreateMap<AddCartItemDTO, CartItem>();
         CreateMap<CartItem, CartItemDTO>();
-  }
+        CreateMap<AddCartDTO, CartItem>();
+    }
 }
 

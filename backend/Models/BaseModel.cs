@@ -8,7 +8,7 @@ namespace backend.Models
     public class BaseModel
     {
         public int Id { get; set; }
-        public DateTime CreatedDateTime { get; set; } = DateTime.Now;
-        public DateTime UpdatedDateTime{ get; set; }=DateTime.Now;
+        public DateTime CreatedDateTime { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedDateTime{ get; set; }=DateTime.UtcNow;
     }
 }

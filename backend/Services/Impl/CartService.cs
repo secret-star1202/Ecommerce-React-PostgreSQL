@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using backend.Models;
 using backend.DTOs.Cart;
 using System.Runtime.InteropServices;
+using backend.DTOs.CartItem;
+using Microsoft.AspNetCore.Mvc;
 
 namespace backend.Services.Impl;
 
@@ -58,6 +60,63 @@ public class CartService : ICartService
         }
         return serviceResponse;
     }
+
+    //public async Task<ServiceResponse<CartDTO>> AddCartItem(int userId, AddCartItemDTO newCartItem)
+    //{
+    //    var serviceResponse = new ServiceResponse<CartDTO>();
+    //    try
+    //    {
+    //        var dbCart = await _context.Carts
+    //            .Include(c => c.CartItems)
+    //            .FirstOrDefaultAsync(c => c.UserId == userId);
+
+    //        if (dbCart == null)
+    //        {
+    //            dbCart = new Cart { UserId = userId };
+    //            await _context.Carts.AddAsync(dbCart);
+    //        }
+
+    //        var dbCartItem = _mapper.Map<CartItem>(newCartItem);
+    //        dbCart.CartItems.Add(dbCartItem);
+
+    //        await _context.SaveChangesAsync();
+
+    //        serviceResponse.Data = _mapper.Map<CartDTO>(dbCart);
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        serviceResponse.Success = false;
+    //        serviceResponse.Message = ex.Message;
+    //    }
+
+    //    return serviceResponse;
+    //}
+
+    public async Task<ServiceResponse<CartDTO>> AddCartItemToUserCart(int userId, int cartItemId)
+    {
+        var serviceResponse = new ServiceResponse<CartDTO>();
+        var cart = await _context.Carts.Include(c => c.CartItems)
+            .FirstOrDefaultAsync(c => c.UserId == userId);
+
+        if (cart == null)
+        {
+            cart = new Cart { UserId = userId };
+            _context.Carts.Add(cart);
+        }
+
+        var cartItem = _mapper.Map<CartItem>(cartItemId);
+        _context.CartItems.Add(cartItem);
+
+        await _context.SaveChangesAsync();
+        serviceResponse.Data= _mapper.Map<CartDTO>(cart);
+
+        return serviceResponse;
+
+
+    }
+
+
+}
 
     // public async Task<ServiceResponse<List<CartDTO>>> CreateCart(int userId)
     // {
@@ -182,4 +241,4 @@ public class CartService : ICartService
 
     //    _context.SaveChanges();
     //}
-}
+

@@ -6,6 +6,7 @@ using backend.Services;
 using backend.DTOs;
 using backend.Models;
 using backend.DTOs.Cart;
+using backend.DTOs.CartItem;
 
 namespace backend.Services;
 
@@ -13,8 +14,10 @@ public interface ICartService
 {
   Task<ServiceResponse<CartDTO>> GetCartById(int id);
   Task<ServiceResponse<CartDTO>> GetCartByUserId(int userId);
+  Task<ServiceResponse<CartDTO>> AddCartItemToUserCart(int userId,int cartItemId);
   // Task<ServiceResponse<List<CartDTO>>> CreateCart(int userId);
   // Task<ServiceResponse<List<CartDTO>>> RemoveCartItem(int cartItemId);
   //Task<ServiceResponse<List<CartDTO>>> AddItemToCart(int cartId, CartItem cartItem);
   // Task<ServiceResponse<List<CartDTO>>> GetCart();
+
 }
