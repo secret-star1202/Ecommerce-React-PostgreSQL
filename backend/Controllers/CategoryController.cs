@@ -12,7 +12,7 @@ using backend.Services;
 namespace backend.Controllers;
 
 [ApiController]
-[Route("api/v1/[controller]s")]
+[Route("api/v1/Categories")]
 public class CategoryController : ControllerBase
 {
     private readonly ICategoryService _categoryService;

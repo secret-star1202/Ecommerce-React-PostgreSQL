@@ -30,7 +30,7 @@ namespace backend.Controllers
             return Ok(await _cartService.GetCartById(id));
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("{userId}/cart")]
         public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> GetCartByUserId(int userId)
         {
             return Ok(await _cartService.GetCartByUserId(userId));
