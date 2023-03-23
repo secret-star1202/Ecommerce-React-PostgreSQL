@@ -41,9 +41,9 @@ public class CartItemController : ControllerBase
     }
 
     [HttpPost()]
-    public async Task<ActionResult<ServiceResponse<List<AddCartItemDTO>>>> AddCartItem(CartItemDTO newItem)
+    public async Task<ActionResult<ServiceResponse<List<AddCartItemDTO>>>> AddCartItem(int userId, int productId)
     {
-        return Ok(await _cartItemService.AddCartItem(newItem));
+        return Ok(await _cartItemService.AddCartItem(userId,productId));
     }
 
     

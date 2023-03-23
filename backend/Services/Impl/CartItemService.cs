@@ -74,19 +74,86 @@ public class CartItemService : ICartItemService
         return serviceResponse;
     }
 
-    public async Task<ServiceResponse<List<AddCartItemDTO>>> AddCartItem(CartItemDTO newItem)
+    //public async Task<ServiceResponse<List<AddCartItemDTO>>> AddCartItem(CartItemDTO newItem)
+    //{
+    //    var serviceResponse = new ServiceResponse<List<AddCartItemDTO>>();
+    //    try
+    //    {
+    //        var item = _mapper.Map<CartItem>(newItem);
+
+    //        _context.CartItems.Add(item);
+    //        await _context.SaveChangesAsync();
+
+    //        serviceResponse.Data = await _context.Carts
+    //                .Select(ci => _mapper.Map<AddCartItemDTO>(ci))
+    //                .ToListAsync();
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        serviceResponse.Success = false;
+    //        serviceResponse.Message = ex.Message;
+    //    }
+    //    return serviceResponse;
+    //}
+
+    public async Task<ServiceResponse<List<AddCartItemDTO>>> AddCartItem(int userId, int productId)
     {
         var serviceResponse = new ServiceResponse<List<AddCartItemDTO>>();
         try
         {
-            var item = _mapper.Map<CartItem>(newItem);
+            // Check if the user and product exist
+            var user = await _context.Users.FindAsync(userId);
+            var product = await _context.Products.FindAsync(productId);
+            if (user == null || product == null)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = "User or product not found.";
+                return serviceResponse;
+            }
 
-            _context.CartItems.Add(item);
+            // Check if the user already has a cart
+            var cart = await _context.Carts
+                .Include(c => c.CartItems)
+                .FirstOrDefaultAsync(c => c.UserId == userId);
+            if (cart == null)
+            {
+                // If the user doesn't have a cart, create a new one
+                cart = new Cart
+                {
+                    UserId = userId,
+                    CartItems = new List<CartItem>()
+                };
+                _context.Carts.Add(cart);
+            }
+
+            // Check if the product already exists in the cart
+            var cartItem = cart.CartItems
+                .FirstOrDefault(ci => ci.ProductId == productId);
+            if (cartItem != null)
+            {
+                // If the product exists, increment the quantity
+                cartItem.ItemQuantity++;
+            }
+            else
+            {
+                // If the product doesn't exist, add a new item with a quantity of 1
+                cartItem = new CartItem
+                {
+                    ProductId = productId,
+                    ItemQuantity = 1,
+                    CartId = cart.Id,
+                    Product = product
+                };
+                _context.CartItems.Add(cartItem);
+                cart.CartItems.Add(cartItem);
+            }
+
             await _context.SaveChangesAsync();
 
-            serviceResponse.Data = await _context.Carts
-                    .Select(ci => _mapper.Map<AddCartItemDTO>(ci))
-                    .ToListAsync();
+            // Return the updated cart items as DTOs
+            serviceResponse.Data = cart.CartItems
+                .Select(ci => _mapper.Map<AddCartItemDTO>(ci))
+                .ToList();
         }
         catch (Exception ex)
         {
@@ -95,5 +162,6 @@ public class CartItemService : ICartItemService
         }
         return serviceResponse;
     }
+
 
 }
