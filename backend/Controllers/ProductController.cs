@@ -42,7 +42,7 @@ public class ProductController : ControllerBase
 
 
     [HttpPost()]
-    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> AddProduct(AddProductDTO newProduct)
+    public async Task<ActionResult<ServiceResponse<List<AddProductDTO>>>> AddProduct(GetProductDTO newProduct)
     {
         return Ok(await _productService.AddProduct(newProduct));
     }

@@ -23,9 +23,9 @@ public class ProductService : IProductService
         _context = context;
     }
 
-    public async Task<ServiceResponse<List<GetProductDTO>>> AddProduct(AddProductDTO newProduct)
+    public async Task<ServiceResponse<List<AddProductDTO>>> AddProduct(GetProductDTO newProduct)
     {
-        var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
+        var serviceResponse = new ServiceResponse<List<AddProductDTO>>();
         try
         {
             var product = _mapper.Map<Product>(newProduct);
@@ -34,7 +34,7 @@ public class ProductService : IProductService
             await _context.SaveChangesAsync();
 
             serviceResponse.Data = await _context.Products
-                    .Select(p => _mapper.Map<GetProductDTO>(p))
+                    .Select(p => _mapper.Map<AddProductDTO>(p))
                     .ToListAsync();
         }
         catch (Exception ex)

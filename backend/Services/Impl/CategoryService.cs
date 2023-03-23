@@ -22,9 +22,9 @@ public class CategoryService : ICategoryService
         _context = context;
     }
 
-    public async Task<ServiceResponse<List<GetCategoryDTO>>> AddCategory(AddCategoryDTO newCategory)
+    public async Task<ServiceResponse<List<AddCategoryDTO>>> AddCategory(GetCategoryDTO newCategory)
     {
-        var serviceResponse = new ServiceResponse<List<GetCategoryDTO>>();
+        var serviceResponse = new ServiceResponse<List<AddCategoryDTO>>();
         try
         {
             var category = _mapper.Map<Category>(newCategory);
@@ -33,7 +33,7 @@ public class CategoryService : ICategoryService
             await _context.SaveChangesAsync();
 
             serviceResponse.Data = await _context.Categories
-                    .Select(c => _mapper.Map<GetCategoryDTO>(c))
+                    .Select(c => _mapper.Map<AddCategoryDTO>(c))
                     .ToListAsync();
         }
         catch (Exception ex)

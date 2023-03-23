@@ -42,7 +42,7 @@ public class UserController : ControllerBase
 
 
     [HttpPost()]
-    public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> AddUser(AddUserDTO newUser)
+    public async Task<ActionResult<ServiceResponse<List<AddUserDTO>>>> AddUser(GetUserDTO newUser)
     {
         return Ok(await _userService.AddUser(newUser));
     }

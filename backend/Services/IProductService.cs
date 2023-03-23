@@ -13,7 +13,7 @@ public interface IProductService
 {
     Task<ServiceResponse<List<GetProductDTO>>> GetAllProducts(string sortBy);
     Task<ServiceResponse<GetProductDTO>> GetProductById(int id);
-    Task<ServiceResponse<List<GetProductDTO>>> AddProduct(AddProductDTO newProduct);
+    Task<ServiceResponse<List<AddProductDTO>>> AddProduct(GetProductDTO newProduct);
     Task<ServiceResponse<GetProductDTO>> UpdateProduct(UpdateProductDTO updatedProduct);
     Task<ServiceResponse<List<GetProductDTO>>> DeleteProduct(int id);
     Task<ServiceResponse<List<GetProductDTO>>> GetProductsByCategory(int categoryId);

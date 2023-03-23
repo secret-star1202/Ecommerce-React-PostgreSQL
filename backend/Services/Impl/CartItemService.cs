@@ -74,9 +74,9 @@ public class CartItemService : ICartItemService
         return serviceResponse;
     }
 
-    public async Task<ServiceResponse<List<CartItemDTO>>> AddCartItem(AddCartItemDTO newItem)
+    public async Task<ServiceResponse<List<AddCartItemDTO>>> AddCartItem(AddCartItemDTO newItem)
     {
-        var serviceResponse = new ServiceResponse<List<CartItemDTO>>();
+        var serviceResponse = new ServiceResponse<List<AddCartItemDTO>>();
         try
         {
             var item = _mapper.Map<CartItem>(newItem);
@@ -85,7 +85,7 @@ public class CartItemService : ICartItemService
             await _context.SaveChangesAsync();
 
             serviceResponse.Data = await _context.Carts
-                    .Select(ci => _mapper.Map<CartItemDTO>(ci))
+                    .Select(ci => _mapper.Map<AddCartItemDTO>(ci))
                     .ToListAsync();
         }
         catch (Exception ex)

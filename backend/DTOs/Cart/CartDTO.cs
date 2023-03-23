@@ -10,7 +10,9 @@ namespace backend.DTOs.Cart;
 public class CartDTO
 {
     public int Id { get; set; }
+   public int UserId { get; set; }
+    public GetUserDTO? User { get; set; }
+    public int CartItemId { get; set; }
     public decimal TotalPrice { get; set; }
-    public int UserId { get; set; }
     public List<CartItemDTO>? CartItems { get; set; }
 }

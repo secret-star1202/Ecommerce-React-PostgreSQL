@@ -37,7 +37,7 @@ public class CategoryController : ControllerBase
 
 
     [HttpPost()]
-    public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> AddCategory(AddCategoryDTO newCategory)
+    public async Task<ActionResult<ServiceResponse<List<AddCategoryDTO>>>> AddCategory(GetCategoryDTO newCategory)
     {
         return Ok(await _categoryService.AddCategory(newCategory));
     }

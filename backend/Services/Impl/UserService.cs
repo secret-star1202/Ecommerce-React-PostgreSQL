@@ -22,9 +22,9 @@ public class UserService : IUserService
         _context = context;
     }
 
-    public async Task<ServiceResponse<List<GetUserDTO>>> AddUser(AddUserDTO newUser)
+    public async Task<ServiceResponse<List<AddUserDTO>>> AddUser(GetUserDTO newUser)
     {
-        var serviceResponse = new ServiceResponse<List<GetUserDTO>>();
+        var serviceResponse = new ServiceResponse<List<AddUserDTO>>();
         try
         {
             var user = _mapper.Map<User>(newUser);
