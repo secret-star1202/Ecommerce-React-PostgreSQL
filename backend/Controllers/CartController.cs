@@ -38,7 +38,7 @@ namespace backend.Controllers
         }
 
         [HttpPost()]
-        public async Task<ActionResult<ServiceResponse<List<AddCartDTO>>>> AddProductToCart(AddCartDTO newCart)
+        public async Task<ActionResult<ServiceResponse<List<AddCartDTO>>>> AddProductToCart(CartDTO newCart)
         {
             return Ok(await _cartService.AddProductToCart(newCart));
         }

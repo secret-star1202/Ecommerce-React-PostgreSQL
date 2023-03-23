@@ -5,7 +5,7 @@ using backend.Models;
 
 namespace backend.DTOs.CartItem;
 
-public class AddCartItemDTO
+public class AddCartItemDTO:BaseModel
 {
     public int CartId { get; set; }
     public int ProductId { get; set; }

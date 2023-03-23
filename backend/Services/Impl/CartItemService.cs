@@ -74,7 +74,7 @@ public class CartItemService : ICartItemService
         return serviceResponse;
     }
 
-    public async Task<ServiceResponse<List<AddCartItemDTO>>> AddCartItem(AddCartItemDTO newItem)
+    public async Task<ServiceResponse<List<AddCartItemDTO>>> AddCartItem(CartItemDTO newItem)
     {
         var serviceResponse = new ServiceResponse<List<AddCartItemDTO>>();
         try

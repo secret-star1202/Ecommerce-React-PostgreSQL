@@ -28,8 +28,13 @@ public class UserService : IUserService
         try
         {
             var user = _mapper.Map<User>(newUser);
+
             _context.Users.Add(user);
-        await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+
+             serviceResponse.Data = await _context.Users
+                    .Select(p => _mapper.Map<AddUserDTO>(p))
+                    .ToListAsync();
         }
         catch (Exception ex)
         {
@@ -38,6 +43,7 @@ public class UserService : IUserService
         }
         return serviceResponse;
     }
+
 
     public async Task<ServiceResponse<List<GetUserDTO>>> GetAllUsers()
     {
