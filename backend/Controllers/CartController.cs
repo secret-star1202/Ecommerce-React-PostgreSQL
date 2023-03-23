@@ -1,3 +1,4 @@
+using System.Net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,5 +36,20 @@ namespace backend.Controllers
         {
             return Ok(await _cartService.GetCartByUserId(userId));
         }
+
+        // [HttpPost()]
+        // public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> AddProductToCart2(int userId, int productId)
+        // {
+        //     return Ok(await _cartService.AddProductToCart2(userId,productId));
+        // }
+        [HttpPost()]
+        public async Task<ActionResult<ServiceResponse<List<CartDTO>>>> AddProductToCart(AddCartDTO newCart)
+        {
+            return Ok(await _cartService.AddProductToCart(newCart));
+        }
+        
     }
+
+
+
 }

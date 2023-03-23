@@ -39,4 +39,12 @@ public class CartItemController : ControllerBase
     {
         return Ok(await _cartItemService.GetCartItemById(id));
     }
+
+    [HttpPost()]
+    public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> AddCartItem(AddCartItemDTO newItem)
+    {
+        return Ok(await _cartItemService.AddCartItem(newItem));
+    }
+
+    
 }

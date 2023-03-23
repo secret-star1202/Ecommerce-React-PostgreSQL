@@ -5,13 +5,9 @@ using backend.Models;
 
 namespace backend.DTOs.CartItem;
 
-public class AddCartItemDTO:BaseModel
-{    
-    public int ItemQuantity { get; set; }
-    public int ProductId { get; set; }
-    public GetProductDTO? Product { get; set; }
+public class AddCartItemDTO
+{
     public int CartId { get; set; }
-    public CartDTO? Cart { get; set; }
-    public decimal? Price { get; set; } 
-
+    public int ProductId { get; set; }
+    public int ItemQuantity { get; set; }
 }

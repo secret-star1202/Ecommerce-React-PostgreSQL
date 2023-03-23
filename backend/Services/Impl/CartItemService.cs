@@ -10,6 +10,7 @@ using backend.Models;
 using backend.DTOs.CartItem;
 using Microsoft.EntityFrameworkCore;
 using backend.DTOs.Product;
+using backend.DTOs.Cart;
 
 namespace backend.Services.Impl;
 
@@ -40,6 +41,7 @@ public class CartItemService : ICartItemService
         return serviceResponse;
     }
 
+
     public async Task<ServiceResponse<List<CartItemDTO>>> GetCartProductsByCartId(int cartId)
     {
         var serviceResponse = new ServiceResponse<List<CartItemDTO>>();
@@ -63,6 +65,28 @@ public class CartItemService : ICartItemService
         {
             var dbCartItem = await _context.CartItems.FirstOrDefaultAsync(ci => ci.Id == id);
             serviceResponse.Data = _mapper.Map<CartItemDTO>(dbCartItem);
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
+        return serviceResponse;
+    }
+
+    public async Task<ServiceResponse<List<CartItemDTO>>> AddCartItem(AddCartItemDTO newItem)
+    {
+        var serviceResponse = new ServiceResponse<List<CartItemDTO>>();
+        try
+        {
+            var item = _mapper.Map<CartItem>(newItem);
+
+            _context.CartItems.Add(item);
+            await _context.SaveChangesAsync();
+
+            serviceResponse.Data = await _context.Carts
+                    .Select(ci => _mapper.Map<CartItemDTO>(ci))
+                    .ToListAsync();
         }
         catch (Exception ex)
         {
