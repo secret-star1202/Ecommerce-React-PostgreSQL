@@ -11,6 +11,7 @@ using System.Dynamic;
 using System.Security;
 using backend.Services;
 using backend.DTOs.User;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers;
 
@@ -27,7 +28,7 @@ public class UserController : ControllerBase
         _userService = userService;
     }
 
-    [HttpGet()]
+    [HttpGet(), Authorize(Roles = "Admin")]
     public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> Get()
     {
         return Ok(await _userService.GetAllUsers());
@@ -41,10 +42,10 @@ public class UserController : ControllerBase
     }
 
 
-    [HttpPost()]
-    public async Task<ActionResult<ServiceResponse<List<AddUserDTO>>>> AddUser(GetUserDTO newUser)
+    [HttpPost("register")]
+    public async Task<ActionResult<ServiceResponse<List<AddUserDTO>>>> Register(GetUserDTO newUser)
     {
-        return Ok(await _userService.AddUser(newUser));
+        return Ok(await _userService.Register(newUser));
     }
 
 

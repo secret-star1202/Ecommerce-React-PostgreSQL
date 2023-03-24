@@ -7,6 +7,7 @@ using backend.Data;
 using backend.DTOs.User;
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
+using BCrypt;
 
 namespace backend.Services;
 
@@ -22,12 +23,17 @@ public class UserService : IUserService
         _context = context;
     }
 
-    public async Task<ServiceResponse<List<AddUserDTO>>> AddUser(GetUserDTO newUser)
+    public async Task<ServiceResponse<List<AddUserDTO>>> Register(GetUserDTO newUser)
     {
         var serviceResponse = new ServiceResponse<List<AddUserDTO>>();
         try
         {
             var user = _mapper.Map<User>(newUser);
+
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+
+            user.Email = newUser.Email;
+            user.Password = passwordHash;
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -92,7 +98,7 @@ public class UserService : IUserService
             user.Email = updatedUser.Email;
             user.Password = updatedUser.Password;
             user.Avatar = updatedUser.Avatar;
-            user.Role = updatedUser.Role;
+            //user.Role = updatedUser.Role;
 
             await _context.SaveChangesAsync();
             serviceResponse.Data = _mapper.Map<GetUserDTO>(user);
