@@ -11,7 +11,6 @@
 * Frontend: SASS, TypeScript, React, Redux Toolkit
 * Backend: ASP .NET Core, Entity Framework Core, PostgreSQL
 
-You can follow the same topics as your backend project. It is also possible to select a different topic
 
 ## Setting Up for folder `Backend`
 
@@ -26,12 +25,3 @@ You can follow the same topics as your backend project. It is also possible to s
    *You can add more packages when necessary.*
 3. You can change .NET Core version to be compatible with your local machine
 
-## Requirements
-
-Below are the steps that you need to finish in order to finish this module
-
-1. Your full stack project should have one git repo to manage both frontend and backend. The shared .git in the root directory is used to push commits to the remote repo. In case you need to deploy frontend and backend to different server, you can inittiate another `.git` folder in each repository. Syntax: `cd frontend` -> `git init` (similar to backend folder). Remember to add `.gitignore` for each folder when you intiate `git` repo.
-2. `frontend` folder is for the react frontend. Start with `backend` first before moving on to `frontend`.
-3. `backend` should have proper file structure, naming convention, and comply with Rest API.
-4. Each topic would have different features. However, the main routes should have CRUD operations, authentication and authorization.
-5. You need to deploy the fullstack project, rewrite `README.md` as instructed earlier in the course.
