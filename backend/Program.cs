@@ -45,6 +45,8 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<ICartItemService, CartItemService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
 

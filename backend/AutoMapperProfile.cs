@@ -7,6 +7,7 @@ using backend.DTOs.Category;
 using backend.Models;
 using backend.DTOs.Cart;
 using backend.DTOs.CartItem;
+using backend.DTOs.Auth;
 
 namespace backend;
 public class AutoMapperProfile : Profile
@@ -43,6 +44,8 @@ public class AutoMapperProfile : Profile
         CreateMap<CartDTO, Cart>();
         CreateMap<User, AddUserDTO>();
         CreateMap<CartItem, AddCartItemDTO>();
+        CreateMap<AuthUserReqDTO, User>();
+        CreateMap<string, AuthUserRespDTO>();
 
     }
 }
