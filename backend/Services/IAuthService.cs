@@ -9,7 +9,6 @@ namespace backend.Services;
 
 public interface IAuthService
 {
-    //Task<ServiceResponse<AuthUserRespDTO>> Register(AuthUserReqDTO request);
     Task<ServiceResponse<AddUserDTO>> Register(GetUserDTO request);
     Task<ServiceResponse<AuthUserRespDTO>> Login(AuthUserReqDTO request);
 }

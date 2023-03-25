@@ -20,7 +20,6 @@ namespace backend.Services.Impl;
 
 public class AuthService : IAuthService
 {
-    //public static AuthUserRespDTO user = new AuthUserRespDTO();
     private readonly IMapper _mapper;
     private readonly DataContext _context;
     private readonly IConfiguration _configuration;
@@ -120,42 +119,3 @@ public class AuthService : IAuthService
 
 }
 
-
-//public async Task<ServiceResponse<AuthUserRespDTO>> Login(AuthUserReqDTO request)
-//{
-//    var serviceResponse = new ServiceResponse<AuthUserRespDTO>();
-//    try
-//    {
-//        var user = _mapper.Map<User>(request);
-
-//        if (user.Email != request.Email)
-//        {
-//            serviceResponse.Success = false;
-//            serviceResponse.Message = "Email not found.";
-//            return serviceResponse;
-//        }
-
-//        if (!BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
-//        {
-//            serviceResponse.Success = false;
-//            serviceResponse.Message = "Wrong password.";
-//            return serviceResponse;
-//        }
-//        ////var token = CreateToken(user);
-//        ////var dbUser = await _context.Users
-//        ////.FirstOrDefaultAsync(u => u.Email == request.Email && u.Password== request.Password);
-//        ////serviceResponse.Data = _mapper.Map<AuthUserRespDTO>(dbUser);
-//        //var token = CreateToken(user);
-//        string token = CreateToken(user);
-//        serviceResponse.Data = _mapper.Map<AuthUserRespDTO>(token);
-
-//    }
-//    catch (Exception ex)
-//    {
-//        serviceResponse.Success = false;
-//        serviceResponse.Message = ex.Message;
-//    }
-
-//    return serviceResponse;
-
-//}
