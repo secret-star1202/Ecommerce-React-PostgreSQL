@@ -25,17 +25,17 @@ const CategorySection = () => {
           onClick={() => navigate(`${category.name}`)}
           key={category.id}
         >
-          <CategoryCardContainer>
+          {/* <CategoryCardContainer>
             <CategoryCard>
               <CardMedia
                 sx={{ height: 250, width: '100%' }}
                 image={category.image}
               />
               <CardContent>
-                <CategoryName>{category.name}</CategoryName>
               </CardContent>
             </CategoryCard>
-          </CategoryCardContainer>
+          </CategoryCardContainer> */}
+          <CategoryName>{category.name}</CategoryName>
         </Container>
       ))}
     </CategorySectionContainer>

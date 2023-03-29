@@ -27,8 +27,10 @@ const Search = styled('div')(({ theme }) => ({
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-
-  width: '400px',
+  width: '300px',
+  [theme.breakpoints.down('sm')]: {
+    display: 'none',
+  },
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
