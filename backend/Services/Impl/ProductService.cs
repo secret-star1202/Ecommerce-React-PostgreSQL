@@ -23,6 +23,22 @@ public class ProductService : IProductService
         _context = context;
     }
 
+    public async Task<ServiceResponse<List<GetProductDTO>>> GetAllProducts()
+    {
+       var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
+        try
+        {
+            var dbProducts = await _context.Products.ToListAsync();
+            serviceResponse.Data = dbProducts.Select(p => _mapper.Map<GetProductDTO>(p)).ToList();
+        }
+        catch (Exception ex)
+        {
+            serviceResponse.Success = false;
+            serviceResponse.Message = ex.Message;
+        }
+        return serviceResponse;
+        
+    }
     public async Task<ServiceResponse<List<AddProductDTO>>> AddProduct(GetProductDTO newProduct)
     {
         var serviceResponse = new ServiceResponse<List<AddProductDTO>>();
@@ -45,7 +61,7 @@ public class ProductService : IProductService
         return serviceResponse;
     }
 
-    public async Task<ServiceResponse<List<GetProductDTO>>> GetAllProducts(string sortBy)
+    public async Task<ServiceResponse<List<GetProductDTO>>> GetAllProductsSort(string sortBy)
     {
         var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
         try

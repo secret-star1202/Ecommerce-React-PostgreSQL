@@ -11,7 +11,8 @@ namespace backend.Services;
 
 public interface IProductService
 {
-    Task<ServiceResponse<List<GetProductDTO>>> GetAllProducts(string sortBy);
+    Task<ServiceResponse<List<GetProductDTO>>> GetAllProducts();
+    Task<ServiceResponse<List<GetProductDTO>>> GetAllProductsSort(string sortBy);
     Task<ServiceResponse<GetProductDTO>> GetProductById(int id);
     Task<ServiceResponse<List<AddProductDTO>>> AddProduct(GetProductDTO newProduct);
     Task<ServiceResponse<GetProductDTO>> UpdateProduct(UpdateProductDTO updatedProduct);

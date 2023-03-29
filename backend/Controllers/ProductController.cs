@@ -30,9 +30,15 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet()]
-    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> Get(string sortBy)
+    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> GetAllProducts()
     {
-        return Ok(await _productService.GetAllProducts(sortBy));
+        return Ok(await _productService.GetAllProducts());
+    }
+
+    [HttpGet("sort-by")]
+    public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> GetAllProductsSort(string sortBy)
+    {
+        return Ok(await _productService.GetAllProductsSort(sortBy));
     }
 
 
