@@ -8,6 +8,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -50,30 +54,22 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
 
-
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Backend", Version = "v1" });
+});
 var app = builder.Build();
-
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-
-// // This middleware serves the Swagger documentation UI
-//     app.UseSwaggerUI(c =>
-//     {
-//         c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-commerce API V1");
-//         c.RoutePrefix = string.Empty;
-//     });
-
 
 app.UseSwagger();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwaggerUI();
 }
-if (!app.Environment.IsDevelopment())
+else
 {
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-commerce API v1");
         c.RoutePrefix = string.Empty;
     });
 }
