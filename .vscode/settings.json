@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/c9019404-04ad-4e8f-a5c8-373bf3fc74b1/resourceGroups/Integrify-fs13/providers/Microsoft.Web/sites/fs13-backend-ecommerce",
+  "appService.deploySubpath": "backend/bin/Publish"
+}
