@@ -54,15 +54,30 @@ builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
+
+// app.UseSwaggerUI(c =>
+// {
+//     c.SwaggerEndpoint("swagger/v1/swagger.json", "E-commerce API v1");
+//     c.RoutePrefix = string.Empty;
+// }
+// );
+app.UseSwagger();
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-  app.UseSwaggerUI(c =>
- {
-   c.SwaggerEndpoint("swagger/v1/swagger.json", "E-commerce API v1");
-   c.RoutePrefix = string.Empty;
- }
-  );
+    app.UseSwaggerUI();
+}
+if (!app.Environment.IsDevelopment())
+{
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
 }
 
 app.UseAuthentication();
