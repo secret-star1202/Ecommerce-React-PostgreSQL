@@ -46,6 +46,15 @@ const Shop = () => {
         }}
       >
         <CategoryLists />
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flexEnd',
+          alignItems: 'center',
+          margin: '0 20px 5px',
+        }}
+      >
         <DropdownOption />
       </Box>
 

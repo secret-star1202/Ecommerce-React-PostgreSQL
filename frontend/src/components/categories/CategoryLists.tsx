@@ -3,6 +3,10 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHook';
 import { fetchAllCategories } from '../../redux/reducers/categorySlice';
+import {
+  CategoryListButton,
+  CategoryListContainer,
+} from './CategoryLists.styles';
 
 const CategoryLists = () => {
   const categories = useAppSelector((state) => state.categoryReducer);
@@ -14,19 +18,18 @@ const CategoryLists = () => {
   }, [dispatch]);
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row', m: 1 }}>
+    <CategoryListContainer>
       {categories &&
         categories.slice(0, 5).map((category) => (
-          <Button
+          <CategoryListButton
             variant="contained"
-            sx={{ m: 1, width: '120px' }}
             key={category.id}
             onClick={() => navigate(`${category.name}`)}
           >
             {category.name}
-          </Button>
+          </CategoryListButton>
         ))}
-    </Box>
+    </CategoryListContainer>
   );
 };
 

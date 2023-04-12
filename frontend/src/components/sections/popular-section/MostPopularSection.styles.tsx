@@ -27,6 +27,10 @@ export const ProductCardsContainer = styled(Box)`
   @media (min-width: ${bp.sm}) {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  @media (min-width: ${bp.lg}) {
+    grid-template-columns: repeat(6, 1fr);
+  }
 `;
 
 export const CardImageContainer = styled(Box)`

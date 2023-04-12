@@ -17,9 +17,16 @@ export const ProdCard = styled(Card)`
     transform: scale(1.1);
     transition: 0.5s;
   }
-  @media (min-width: ${bp.md}) {
-    width: 200px;
-    height: 325px;
+
+  @media (min-width: ${bp.sm}) {
+    min-width: 100px;
+    min-height: 225px;
+    margin: 10px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    max-width: 250px;
+    height: 300px;
     margin: 10px;
   }
 `;
@@ -53,12 +60,13 @@ export const ProductCardName = styled(Typography)`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 11px;
+  font-size: 8px;
+  padding: 2px;
 `;
 
 export const ProductCardPrice = styled(Typography)`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 11px;
+  font-size: 8px;
 `;

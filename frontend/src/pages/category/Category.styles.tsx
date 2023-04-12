@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { breakpoints as bp } from '../../utils/layout';
 
 export const PageContainer = styled(Container)`
   height: 100%;
@@ -21,7 +22,15 @@ export const PageContainer = styled(Container)`
 export const CardsWrapper = styled(Grid)`
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (min-width: ${bp.sm}) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: ${bp.lg}) {
+    grid-template-columns: repeat(6, 1fr);
+  }
 `;
 
 export const PaginationContainer = styled(Box)`
@@ -30,9 +39,26 @@ export const PaginationContainer = styled(Box)`
   margin: 30px;
 `;
 export const ProdCard = styled(Card)`
-  width: 200px;
-  height: 325px;
-  margin: 10px;
+  width: 150px;
+  height: 300px;
+  margin: 5px;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: 0.5s;
+  }
+
+  @media (min-width: ${bp.sm}) {
+    min-width: 100px;
+    min-height: 225px;
+    margin: 10px;
+  }
+
+  @media (min-width: ${bp.lg}) {
+    max-width: 250px;
+    height: 300px;
+    margin: 10px;
+  }
 `;
 
 export const CardImage = styled(CardMedia)`
@@ -44,26 +70,26 @@ export const ProductCardContent = styled(CardContent)`
 `;
 
 export const ProductCardButton = styled(Button)`
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 8px;
+  width: 100%;
 `;
 
 export const ProductCardName = styled(Typography)`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px;
-  font-size: 12px;
+  font-size: 8px;
+  padding: 2px;
 `;
 
 export const ProductCardPrice = styled(Typography)`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px;
-  font-size: 13px;
+  font-size: 8px;
 `;
 
 export const SingleProductLink = styled(Link)`

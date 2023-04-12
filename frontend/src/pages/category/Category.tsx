@@ -30,12 +30,21 @@ const Category = () => {
         <Tab label="BACK" onClick={() => navigate(-1)} />
       </Box>
 
-      <Box>{category}</Box>
       <Box
         sx={{
           width: '100%',
           display: 'flex',
-          justifyContent: 'flex-end',
+          justifyContent: 'center',
+          paddingRight: '35px',
+        }}
+      >
+        {category}
+      </Box>
+      <Box
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
           paddingRight: '35px',
         }}
       >
