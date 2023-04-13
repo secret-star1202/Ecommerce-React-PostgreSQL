@@ -7,13 +7,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using Microsoft.AspNetCore.Cors;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -73,7 +83,9 @@ else
         c.RoutePrefix = string.Empty;
     });
 }
- 
+
+
+app.UseCors("AllowAllOrigins");
 
 app.UseAuthentication();
 app.UseHttpsRedirection();
