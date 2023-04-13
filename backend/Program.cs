@@ -16,12 +16,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAllOrigins",
-        builder =>
+    options.AddPolicy(name: "Mypolicy",
+        policy =>
         {
-            builder.AllowAnyOrigin()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
+            policy.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+
         });
 });
 // Add services to the container.
@@ -85,7 +86,8 @@ else
 }
 
 
-app.UseCors("AllowAllOrigins");
+//app.UseCors("AllowAllOrigins");
+app.UseCors("Mypolicy");
 
 app.UseAuthentication();
 app.UseHttpsRedirection();
