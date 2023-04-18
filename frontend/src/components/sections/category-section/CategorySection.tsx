@@ -9,6 +9,7 @@ import {
   CategoryCard,
   CategoryName,
 } from './CategorySection.styles';
+import { CategoryListButton } from '../../categories/CategoryLists.styles';
 
 const CategorySection = () => {
   const categories = useAppSelector((state) => state.categoryReducer);
@@ -20,24 +21,16 @@ const CategorySection = () => {
   }, [dispatch]);
   return (
     <CategorySectionContainer maxWidth={false}>
-      {categories.slice(0, 5).map((category) => (
-        <Container
-          onClick={() => navigate(`${category.name}`)}
-          key={category.id}
-        >
-          {/* <CategoryCardContainer>
-            <CategoryCard>
-              <CardMedia
-                sx={{ height: 250, width: '100%' }}
-                image={category.image}
-              />
-              <CardContent>
-              </CardContent>
-            </CategoryCard>
-          </CategoryCardContainer> */}
-          <CategoryName>{category.name}</CategoryName>
-        </Container>
-      ))}
+      {categories &&
+        categories.slice(0, 5).map((category) => (
+          <CategoryListButton
+            variant="contained"
+            key={category.id}
+            onClick={() => navigate(`${category.name}`)}
+          >
+            {category.name}
+          </CategoryListButton>
+        ))}
     </CategorySectionContainer>
   );
 };

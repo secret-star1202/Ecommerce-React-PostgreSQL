@@ -21,24 +21,22 @@ import {
 const Product = () => {
   const products = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
-
-  const { title } = useParams();
+  const { name } = useParams();
   const navigate = useNavigate();
-
   return (
     <PageContainer>
       <Tab label="BACK" onClick={() => navigate(-1)} />
       <SingleProductContainer>
         {products
-          .filter((item) => item.title === title)
+          .filter((item) => item.name === name)
           .map((item) => (
             <ProductDetailsContainer key={item.id}>
               <ProductDetailsBox>
-                <CardImage image={item.images[0]} />
+                <CardImage image={item.image} />
               </ProductDetailsBox>
               <ProductDetailsBox>
                 <DetailsBox>
-                  <Typography variant="h5">{item.title}</Typography>
+                  <Typography variant="h5">{item.name}</Typography>
                 </DetailsBox>
                 <DetailsBox>
                   <Typography variant="h6">${item.price}</Typography>

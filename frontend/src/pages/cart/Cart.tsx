@@ -57,11 +57,11 @@ const Cart = () => {
                 <CartItemContainer key={item.id}>
                   <CartItem>
                     <CartItemDetails>
-                      <CartImage image={item.images[0]} />
+                      <CartImage image={item.image} />
                     </CartItemDetails>
 
                     <CartItemDetails>
-                      <ProductCardName>{item.title}</ProductCardName>
+                      <ProductCardName>{item.name}</ProductCardName>
                       <ProductCardPrice>
                         ${item.price * item.itemQuantity}
                       </ProductCardPrice>

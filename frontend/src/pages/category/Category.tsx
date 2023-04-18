@@ -52,15 +52,11 @@ const Category = () => {
       </Box>
       <CardsWrapper>
         {products
-          .filter((product) => product.category.name === category)
+          .filter((product) => product.categoryName === category)
           .map((product) => (
             <ProdCard key={product.id}>
-              <CardImageContainer onClick={() => navigate(`${product.title}`)}>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={product.images[0]}
-                />
+              <CardImageContainer onClick={() => navigate(`${product.name}`)}>
+                <CardMedia component="img" height="200" image={product.image} />
                 <Box
                   sx={{
                     position: 'absolute',
@@ -79,7 +75,7 @@ const Category = () => {
                       textTransform: 'uppercase',
                     }}
                   >
-                    {product.category.name}
+                    {product.categoryName}
                   </Typography>
                 </Box>
               </CardImageContainer>
@@ -97,7 +93,7 @@ const Category = () => {
                     textTransform: 'uppercase',
                   }}
                 >
-                  {product.title}
+                  {product.name}
                 </ProductCardName>
                 <ProductCardPrice>$ {product.price}</ProductCardPrice>
               </ProductCardContent>

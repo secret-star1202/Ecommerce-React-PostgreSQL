@@ -3,11 +3,11 @@ import { styled } from '@mui/material/styles';
 import { breakpoints as bp } from '../../../utils/layout';
 
 export const CategorySectionContainer = styled(Container)`
-  // display: flex;
-  // flex-direction: row;
-  // justify-content: center;
-  // margin-top: 20px;
-  display: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+  // display: none;
 
   @media (min-width: ${bp.xs}) {
   }
@@ -44,9 +44,9 @@ export const CategoryCard = styled(Card)`
 `;
 
 export const CategoryName = styled(Typography)`
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // font-weight: 700;
-  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  //border: 1px solid red;
 `;

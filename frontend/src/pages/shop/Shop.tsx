@@ -31,6 +31,7 @@ const Shop = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  console.log('PLEASE', products);
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, [dispatch]);
@@ -63,13 +64,9 @@ const Shop = () => {
           products.map((product) => (
             <ProdCard key={product.id}>
               <CardImageContainer
-                onClick={() => navigate(`/category/${product.title}`)}
+                onClick={() => navigate(`/category/${product.name}`)}
               >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={product.images[0]}
-                />
+                <CardMedia component="img" height="200" image={product.image} />
                 <Box
                   sx={{
                     position: 'absolute',
@@ -88,7 +85,7 @@ const Shop = () => {
                       textTransform: 'uppercase',
                     }}
                   >
-                    {product.category.name}
+                    {product.categoryName}
                   </Typography>
                 </Box>
               </CardImageContainer>
@@ -106,7 +103,7 @@ const Shop = () => {
                     textTransform: 'uppercase',
                   }}
                 >
-                  {product.title}
+                  {product.name}
                 </ProductCardName>
                 <ProductCardPrice>$ {product.price}</ProductCardPrice>
               </ProductCardContent>

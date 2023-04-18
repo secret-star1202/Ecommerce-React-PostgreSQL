@@ -37,13 +37,9 @@ const MostPopularSection = () => {
           products.slice(8, 14).map((product) => (
             <ProdCard key={product.id}>
               <CardImageContainer
-                onClick={() => navigate(`/category/${product.title}`)}
+                onClick={() => navigate(`/category/${product.name}`)}
               >
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={product.images[0]}
-                />
+                <CardMedia component="img" height="200" image={product.image} />
                 <Box
                   sx={{
                     position: 'absolute',
@@ -62,7 +58,7 @@ const MostPopularSection = () => {
                       textTransform: 'uppercase',
                     }}
                   >
-                    {product.category.name}
+                    {product.categoryName}
                   </Typography>
                 </Box>
               </CardImageContainer>
@@ -74,7 +70,7 @@ const MostPopularSection = () => {
                 >
                   ADD TO CART
                 </ProductCardButton>
-                <ProductCardName>{product.title}</ProductCardName>
+                <ProductCardName>{product.name}</ProductCardName>
                 <ProductCardPrice>$ {product.price}</ProductCardPrice>
               </ProductCardContent>
             </ProdCard>
