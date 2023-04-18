@@ -27,7 +27,8 @@ public class ProductController : ControllerBase
     [HttpGet("sort-by")]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> GetAllProductsSort(string sortBy)
     {
-        return Ok(await _productService.GetAllProductsSort(sortBy));
+        var products = await _productService.GetAllProductsSort(sortBy);
+        return Ok(products.Data);
     }
 
 
