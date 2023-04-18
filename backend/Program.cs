@@ -16,16 +16,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "Mypolicy",
-        policy =>
+      options.AddPolicy("AllowAllOrigins",
+        builder =>
         {
-            policy.WithOrigins("http://localhost:3000")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
         });
 });
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -65,10 +63,6 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
 
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Backend", Version = "v1" });
-});
 var app = builder.Build();
 
 app.UseSwagger();
@@ -76,26 +70,25 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwaggerUI();
 }
-else
+
+else if (app.Environment.IsProduction())
 {
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-commerce API v1");
-        c.RoutePrefix = string.Empty;
     });
 }
 
 
-//app.UseCors("AllowAllOrigins");
-app.UseCors("Mypolicy");
-
-app.UseAuthentication();
+app.UseCors("AllowAllOrigins");
+app.UseRouting();
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
-
-app.MapControllers();
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.Run();
 
 

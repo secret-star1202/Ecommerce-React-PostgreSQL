@@ -1,17 +1,7 @@
-using System.Net;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using backend.Models;
 using backend.DTOs.Cart;
 using backend.Services;
-using backend.DTOs.Category;
-using backend.DTOs.CartItem;
-using backend.Services.Impl;
 
 namespace backend.Controllers
 {
@@ -44,7 +34,4 @@ namespace backend.Controllers
         }
         
     }
-
-
-
 }

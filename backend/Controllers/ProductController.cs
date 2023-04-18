@@ -1,21 +1,9 @@
-using System.Runtime.ExceptionServices;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using backend.Models;
-using System.Dynamic;
-using System.Security;
 using backend.Services;
 using backend.DTOs.Product;
-using Microsoft.AspNetCore.Authorization;
-using System.Data;
 
 namespace backend.Controllers;
-
 
 [ApiController]
 [Route("api/v1/[controller]s")]
@@ -32,7 +20,8 @@ public class ProductController : ControllerBase
     [HttpGet()]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> GetAllProducts()
     {
-        return Ok(await _productService.GetAllProducts());
+        var products = await _productService.GetAllProducts();
+        return Ok(products.Data);
     }
 
     [HttpGet("sort-by")]
@@ -49,14 +38,14 @@ public class ProductController : ControllerBase
     }
 
 
-    [HttpPost(), Authorize(Roles ="Admin")]
+    [HttpPost()]
     public async Task<ActionResult<ServiceResponse<List<AddProductDTO>>>> AddProduct(GetProductDTO newProduct)
     {
         return Ok(await _productService.AddProduct(newProduct));
     }
 
 
-    [HttpPut(), Authorize(Roles = "Admin")]
+    [HttpPut()]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> UpdateProduct(UpdateProductDTO updatedProduct)
     {
         var response = await _productService.UpdateProduct(updatedProduct);
@@ -69,7 +58,7 @@ public class ProductController : ControllerBase
     }
 
 
-    [HttpDelete("{id}"), Authorize(Roles ="Admin")]
+    [HttpDelete("{id}")]
     public async Task<ActionResult<ServiceResponse<GetProductDTO>>> DeleteProduct(int id)
     {
         var response = await _productService.DeleteProduct(id);

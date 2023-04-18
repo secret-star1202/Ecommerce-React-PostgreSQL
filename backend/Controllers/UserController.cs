@@ -1,26 +1,14 @@
-using System.Runtime.ExceptionServices;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using backend.Models;
-using System.Dynamic;
-using System.Security;
 using backend.Services;
 using backend.DTOs.User;
-using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers;
-
 
 [ApiController]
 [Route("api/v1/[controller]s")]
 public class UserController : ControllerBase
 {
-
     private readonly IUserService _userService;
 
     public UserController(IUserService userService)
@@ -31,10 +19,11 @@ public class UserController : ControllerBase
     [HttpGet()]
     public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> Get()
     {
-        return Ok(await _userService.GetAllUsers());
+        var users = await _userService.GetAllUsers();
+        return Ok(users.Data);
     }
 
-
+    
     [HttpGet("{id}")]
     public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> GetSingle(int id)
     {

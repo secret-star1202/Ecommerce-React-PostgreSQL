@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using backend.Models;
 using backend.DTOs.Category;
 using backend.Services;
+using backend.DTOs.Product;
 
 namespace backend.Controllers;
 
@@ -25,9 +20,9 @@ public class CategoryController : ControllerBase
     [HttpGet()]
     public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> GetAll()
     {
-        return Ok(await _categoryService.GetAllCategories());
+        var categories = await _categoryService.GetAllCategories();
+        return Ok(categories.Data);
     }
-
 
     [HttpGet("{id}")]
     public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> GetSingle(int id)

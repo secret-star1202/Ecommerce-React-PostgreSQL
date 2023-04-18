@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using backend.Services;
 using backend.Models;
 using backend.DTOs.CartItem;
-using backend.DTOs.Category;
 
 namespace backend.Controllers;
 
@@ -25,7 +18,8 @@ public class CartItemController : ControllerBase
     [HttpGet()]
     public async Task<ActionResult<ServiceResponse<List<CartItemDTO>>>> GetAll()
     {
-        return Ok(await _cartItemService.GetCartItems());
+        var cartItems = await _cartItemService.GetCartItems();
+        return Ok(cartItems.Data);
     }
 
     [HttpGet("{cartId}/products")]
@@ -45,6 +39,4 @@ public class CartItemController : ControllerBase
     {
         return Ok(await _cartItemService.AddCartItem(userId,productId));
     }
-
-    
 }
