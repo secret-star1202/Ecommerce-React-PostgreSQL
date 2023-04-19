@@ -4,7 +4,7 @@ import { FooterContainer } from './Footer.styles';
 const Footer = () => {
   return (
     <FooterContainer maxWidth={false}>
-      <Box sx={{ width: '400px', m: 1, p: 2 }}>
+      <Box sx={{ m: 1, p: 2 }}>
         <Typography
           variant="h6"
           sx={{
@@ -20,7 +20,7 @@ const Footer = () => {
         <Typography variant="body1">Careers</Typography>
         <Typography variant="body1">Privacy policy</Typography>
       </Box>
-      <Box sx={{ width: '400px', m: 1, p: 2 }}>
+      <Box sx={{ m: 1, p: 2 }}>
         <Typography
           variant="h6"
           sx={{
@@ -35,7 +35,7 @@ const Footer = () => {
         <Typography variant="body1">Terms and conditions</Typography>
         <Typography variant="body1">Frequently asked questions</Typography>
       </Box>{' '}
-      <Box sx={{ width: '400px', m: 1, p: 2 }}>
+      <Box sx={{ m: 1, p: 2 }}>
         <Typography
           variant="h6"
           sx={{
@@ -49,7 +49,7 @@ const Footer = () => {
         <Typography variant="body1">Search alert</Typography>
         <Typography variant="body1">Search </Typography>
       </Box>
-      <Box sx={{ width: '400px', m: 1, p: 2 }}>
+      <Box sx={{ m: 1, p: 2 }}>
         <Typography
           variant="h6"
           sx={{
@@ -65,7 +65,7 @@ const Footer = () => {
         <Typography variant="body1">Sale</Typography>
         <Typography variant="body1">New arrivals</Typography>
       </Box>
-      <Box sx={{ width: '400px', m: 1, p: 2 }}>
+      <Box sx={{ m: 1, p: 2 }}>
         <Typography
           variant="h6"
           sx={{
