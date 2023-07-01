@@ -31,7 +31,6 @@ const Shop = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  console.log('PLEASE', products);
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, [dispatch]);
