@@ -1,11 +1,5 @@
-import { useEffect } from 'react';
-import {
-  Box,
-  CardMedia,
-  Pagination,
-  PaginationItem,
-  Typography,
-} from '@mui/material';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { Box, CardMedia, Pagination, Typography } from '@mui/material';
 import {
   PageContainer,
   CardsWrapper,
@@ -17,8 +11,6 @@ import {
   ProductCardPrice,
   CardImageContainer,
 } from './Shop.styles';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHook';
 import { fetchAllProducts } from '../../redux/reducers/productSlice';
 import DropdownOption from '../../components/dropdown-option/DropdownOption';
@@ -30,11 +22,22 @@ const Shop = () => {
   const products = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
 
   useEffect(() => {
     dispatch(fetchAllProducts());
   }, [dispatch]);
 
+  // Calculate the current page's range of products
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Handle page change
+  const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+  };
   return (
     <PageContainer>
       <Box
@@ -59,8 +62,8 @@ const Shop = () => {
       </Box>
 
       <CardsWrapper>
-        {products.length > 0 &&
-          products.map((product) => (
+        {currentProducts.length > 0 &&
+          currentProducts.map((product) => (
             <ProdCard key={product.id}>
               <CardImageContainer
                 onClick={() => navigate(`/category/${product.name}`)}
@@ -111,13 +114,9 @@ const Shop = () => {
       </CardsWrapper>
       <PaginationContainer>
         <Pagination
-          count={10}
-          renderItem={(item) => (
-            <PaginationItem
-              slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-              {...item}
-            />
-          )}
+          count={Math.ceil(products.length / itemsPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
         />
       </PaginationContainer>
     </PageContainer>

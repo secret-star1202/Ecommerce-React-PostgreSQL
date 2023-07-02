@@ -1,4 +1,4 @@
-import { Box, CardMedia, Tab, Typography } from '@mui/material';
+import { Box, CardMedia, Pagination, Tab, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import DropdownOption from '../../components/dropdown-option/DropdownOption';
 import { useAppSelector, useAppDispatch } from '../../hooks/reduxHook';
@@ -13,12 +13,32 @@ import {
   ProductCardContent,
   PageContainer,
 } from './Category.styles';
+import { ChangeEvent, useState } from 'react';
+import { PaginationContainer } from '../shop/Shop.styles';
 
 const Category = () => {
   const products = useAppSelector((state) => state.productReducer);
   const dispatch = useAppDispatch();
   const { category } = useParams();
   const navigate = useNavigate();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+
+  // Calculate the current page's range of products
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const categoryItems = products
+    .filter((product) => product.categoryName === category)
+    .slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(
+    products.filter((product) => product.categoryName === category).length /
+      itemsPerPage
+  );
+  // Handle page change
+  const handlePageChange = (event: ChangeEvent<unknown>, value: number) => {
+    setCurrentPage(value);
+  };
 
   return (
     <PageContainer>
@@ -51,9 +71,8 @@ const Category = () => {
         <DropdownOption />
       </Box>
       <CardsWrapper>
-        {products
-          .filter((product) => product.categoryName === category)
-          .map((product) => (
+        {categoryItems.length > 0 &&
+          categoryItems.map((product) => (
             <ProdCard key={product.id}>
               <CardImageContainer onClick={() => navigate(`${product.name}`)}>
                 <CardMedia component="img" height="200" image={product.image} />
@@ -100,6 +119,13 @@ const Category = () => {
             </ProdCard>
           ))}
       </CardsWrapper>
+      <PaginationContainer>
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+        />
+      </PaginationContainer>
     </PageContainer>
   );
 };
