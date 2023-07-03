@@ -19,8 +19,11 @@ import { useAppSelector } from '../../hooks/reduxHook';
 import { RootState } from '../../redux/store';
 import Typography from '@mui/material/Typography';
 import { Avatar } from '@mui/material';
+import { ChangeEvent, useState } from 'react';
+import { Product } from '../../types/product';
+import SearchResults from '../search/SearchResults';
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('form')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -60,6 +63,41 @@ const Navbar = () => {
   const { cartItems } = useAppSelector((state: RootState) => state.cartReducer);
   const authInfo = useAppSelector((state) => state.authReducer);
   const userInfo = useAppSelector((state) => state.authReducer);
+  const [searchTerm, setSearchTerm] = useState('');
+  const products = useAppSelector((state) => state.productReducer);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  // eslint-disable-next-line
+  const [showSearchResults, setShowSearchResults] = useState(false);
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const searchValue = event.target.value;
+    setSearchTerm(searchValue);
+
+    // Perform filtering based on the search term
+    const filteredProducts = products.filter((product: Product) => {
+      const name = product.name.toLowerCase();
+      const query = searchValue.toLowerCase();
+      return name.startsWith(query) || name === query;
+    });
+
+    setFilteredProducts(filteredProducts.slice(0, 5));
+    setShowSearchResults(true);
+  };
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Perform search operation based on the search term
+    const filteredProducts = products.filter((product: Product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(filteredProducts);
+    setSearchTerm('');
+  };
+
+  const handleItemClick = () => {
+    setShowSearchResults(false); // Hide search results when an item is clicked
+    setSearchTerm(''); //clear input field
+  };
 
   const setUserImage = () => {
     if (userInfo && userInfo.userInfo?.avatar) {
@@ -94,15 +132,25 @@ const Navbar = () => {
           </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box>
-            <Search>
+            <Search onSubmit={handleSearchSubmit}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                value={searchTerm}
+                onChange={handleSearchChange}
               />
             </Search>
+            {searchTerm && filteredProducts.length > 0 && (
+              <SearchResults
+                searchTerm={searchTerm}
+                filteredProducts={filteredProducts}
+                onItemClick={handleItemClick}
+                showSearchResults={showSearchResults}
+              />
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 1 }} />
