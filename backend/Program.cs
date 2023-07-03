@@ -65,26 +65,34 @@ builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.
 
 var app = builder.Build();
 
-app.UseSwagger();
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwaggerUI();
-}
+// app.UseSwagger();
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwaggerUI();
+// }
 
-else if (app.Environment.IsProduction())
-{
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-commerce API v1");
-    });
-}
+// else if (app.Environment.IsProduction())
+// {
+//     app.UseSwaggerUI(c =>
+//     {
+//         c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-commerce API v1");
+//     });
+// }
 
 
 app.UseCors("AllowAllOrigins");
 app.UseRouting();
-app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-commerce API v1");
+    c.RoutePrefix = string.Empty; // Serve the Swagger UI at the root URL ("/") instead of "/swagger"
+});
+
+app.UseHttpsRedirection();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
