@@ -75,9 +75,9 @@ const Navbar = () => {
 
     // Perform filtering based on the search term
     const filteredProducts = products.filter((product: Product) => {
-      const name = product.name.toLowerCase();
+      const title = product.name.toLowerCase();
       const query = searchValue.toLowerCase();
-      return name.startsWith(query) || name === query;
+      return title.startsWith(query) || title === query;
     });
 
     setFilteredProducts(filteredProducts.slice(0, 5));
