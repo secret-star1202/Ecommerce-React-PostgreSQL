@@ -6,7 +6,9 @@ export const fetchAllProducts = createAsyncThunk(
   'fetchAllProducts ',
   async () => {
     try {
-      const res = await axios.get('http://localhost:5113/api/v1/Products');
+      const res = await axios.get(
+        'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/Products'
+      );
       return res.data;
     } catch (error) {
       console.log(error);
