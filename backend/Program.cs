@@ -89,7 +89,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-commerce API v1");
-    c.RoutePrefix = string.Empty; // Serve the Swagger UI at the root URL ("/") instead of "/swagger"
+    c.RoutePrefix = "swagger"; 
 });
 
 app.UseHttpsRedirection();
