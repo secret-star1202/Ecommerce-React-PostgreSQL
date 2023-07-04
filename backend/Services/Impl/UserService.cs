@@ -97,8 +97,7 @@ public class UserService : IUserService
             user.Name = updatedUser.Name;
             user.Email = updatedUser.Email;
             user.Password = updatedUser.Password;
-            user.Avatar = updatedUser.Avatar;
-            //user.Role = updatedUser.Role;
+            user.Initials = updatedUser.Initials;
 
             await _context.SaveChangesAsync();
             serviceResponse.Data = _mapper.Map<GetUserDTO>(user);
