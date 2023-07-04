@@ -12,7 +12,7 @@ export const authenticateCredentials = createAsyncThunk(
   'authenticateCredentials',
   async (access_token: string) => {
     try {
-      const response = await axiosInstance.post('/auth/profile', {
+      const response = await axiosInstance.post('/profile', {
         headers: { Authorization: `Bearer${access_token}` },
       });
       const data: ReturnedAuthCreds = response.data;
@@ -28,7 +28,7 @@ export const loginUser = createAsyncThunk(
   'loginUser',
   async (credentials: AuthCreds) => {
     try {
-      const auth = await axiosInstance.post('/auth/login', credentials);
+      const auth = await axiosInstance.post('/login', credentials);
       const authData: ReturnedAuthCreds = auth.data;
       if ('access_token' in authData && authData.access_token.length) {
         const headerConfig = {

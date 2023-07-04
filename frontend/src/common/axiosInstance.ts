@@ -3,5 +3,3 @@ const axiosInstance = axios.create({
   baseURL: 'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1',
 });
 export default axiosInstance;
-
-//https://api.escuelajs.co/api/v1

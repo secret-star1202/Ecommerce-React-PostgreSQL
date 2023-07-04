@@ -1,18 +1,13 @@
+import React from 'react';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Box, Button, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../hooks/reduxHook';
 import { registerUser } from '../../../redux/reducers/userSlice';
 import { PageContainer, RegisterContainer } from './Register.styles';
-
-interface IFormInputs {
-  name: string;
-  email: string;
-  password: string;
-  avatar: FileList | string;
-}
+import { IUserRegister } from '../../../types/auth';
 
 const schema = yup
   .object({
@@ -30,13 +25,14 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormInputs>({
+  } = useForm<IUserRegister>({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data: IFormInputs) => {
-    console.log(data);
+
+  const onSubmit = (data: IUserRegister) => {
     dispatch(registerUser(data));
   };
+
   return (
     <PageContainer>
       <RegisterContainer
@@ -114,4 +110,5 @@ const Register = () => {
     </PageContainer>
   );
 };
+
 export default Register;

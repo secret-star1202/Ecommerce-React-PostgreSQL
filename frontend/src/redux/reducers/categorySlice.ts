@@ -7,7 +7,7 @@ export const fetchAllCategories = createAsyncThunk(
   async () => {
     try {
       const res = await axios.get(
-        'https://ecommerce-postgresql-backend.azurewebsites.net//api/v1/categories'
+        'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/categories'
       );
       return res.data;
     } catch (error) {
@@ -21,7 +21,7 @@ export const fetchAByCategories = createAsyncThunk(
   async (categoryID: number) => {
     try {
       const res = await axios.get(
-        `https://ecommerce-postgresql-backend.azurewebsites.net//api/v1/categories=${categoryID}products/`
+        `https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/categories=${categoryID}products/`
       );
       return res.data;
     } catch (error) {
