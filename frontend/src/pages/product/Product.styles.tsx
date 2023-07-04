@@ -1,15 +1,5 @@
 import { styled } from '@mui/material/styles';
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Button,
-  Typography,
-  Box,
-  Container,
-  Grid,
-} from '@mui/material';
-import { Link } from 'react-router-dom';
+import { CardMedia, Box, Container } from '@mui/material';
 import { breakpoints as bp } from '../../utils/layout';
 
 export const PageContainer = styled(Container)`

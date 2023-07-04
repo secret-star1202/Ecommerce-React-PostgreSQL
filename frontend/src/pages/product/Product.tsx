@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  CardMedia,
-  Container,
-  Tab,
-  Typography,
-} from '@mui/material';
+import { Button, Tab, Typography } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHook';
 import { addToCart } from '../../redux/reducers/cartSlice';

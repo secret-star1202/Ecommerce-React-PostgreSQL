@@ -1,14 +1,8 @@
-import { CardMedia, CardContent, Container } from '@mui/material';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../hooks/reduxHook';
 import { fetchAllCategories } from '../../../redux/reducers/categorySlice';
-import {
-  CategorySectionContainer,
-  CategoryCardContainer,
-  CategoryCard,
-  CategoryName,
-} from './CategorySection.styles';
+import { CategorySectionContainer } from './CategorySection.styles';
 import { CategoryListButton } from '../../categories/CategoryLists.styles';
 
 const CategorySection = () => {
