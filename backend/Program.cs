@@ -90,10 +90,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
 });
-app.Run(async context =>
-{
-    context.Response.Redirect("/swagger/index.html");
-    await Task.CompletedTask;
-});
+app.Run();
+
 
 
