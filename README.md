@@ -36,7 +36,8 @@
 
 - .NET
 - Entity Framework 7
-- Postgresql
+- PostgreSQL
+- [Swagger UI](https://ecommerce-postgresql-backend.azurewebsites.net/swagger/index.html)
 
 ## Dependencies
 
@@ -52,4 +53,12 @@
 - Npgsql.EntityFrameworkCore.PostgreSQL version 7.0.4
 - Swashbuckle.AspNetCore version 6.5.0
 - Swashbuckle.AspNetCore.Filters version 7.0.6
-  -System.IdentityModel.Tokens.Jwt version 6.31.0
+-System.IdentityModel.Tokens.Jwt version 6.31.0
+
+<img width="770" alt="Screenshot 2023-07-04 at 5 03 10" src="https://github.com/iamtigermaximus/ecommerce-react-postgresql-dotnet/assets/46716968/689b3e56-3dd7-4974-bc35-72478e306976">
+<img width="767" alt="Screenshot 2023-07-04 at 5 03 43" src="https://github.com/iamtigermaximus/ecommerce-react-postgresql-dotnet/assets/46716968/47f039e7-e679-40cc-b588-e96be92e0b7b">
+<img width="771" alt="Screenshot 2023-07-04 at 5 04 17" src="https://github.com/iamtigermaximus/ecommerce-react-postgresql-dotnet/assets/46716968/09a69108-d91b-4164-ae37-7c9fff84abc9">
+<img width="775" alt="Screenshot 2023-07-04 at 5 04 48" src="https://github.com/iamtigermaximus/ecommerce-react-postgresql-dotnet/assets/46716968/ad066729-5b76-49db-89d3-0f8345c6a58f">
+
+
+
