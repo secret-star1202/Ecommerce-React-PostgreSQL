@@ -76,7 +76,6 @@ else if (app.Environment.IsProduction())
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-commerce API v1");
-        c.RoutePrefix = "swagger"; 
     });
 }
 
@@ -91,6 +90,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 });
 app.Run();
-
 
 
