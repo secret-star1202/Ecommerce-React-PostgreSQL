@@ -5,8 +5,8 @@ using backend.Services;
 using backend.DTOs.User;
 
 namespace backend.Controllers;
-
-[Route("api/[controller]")]
+[ApiController]
+[Route("api/v1/[controller]s")]
 public class AuthController : ControllerBase
 {
 
@@ -21,11 +21,11 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    [HttpPost("register")]
-    public async Task<ActionResult<ServiceResponse<AddUserDTO>>> Register(GetUserDTO request)
-    {
-        return Ok(await _authService.Register(request));
-    }
+    // [HttpPost()]
+    // public async Task<ActionResult<ServiceResponse<AddUserDTO>>> Register(GetUserDTO request)
+    // {
+    //     return Ok(await _authService.Register(request));
+    // }
 
     [HttpPost("login")]
     public async Task<ActionResult<ServiceResponse<AuthUserRespDTO>>> Login(AuthUserReqDTO request)

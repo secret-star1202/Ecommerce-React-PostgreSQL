@@ -31,7 +31,7 @@ public class UserController : ControllerBase
     }
 
 
-    [HttpPost("register")]
+    [HttpPost()]
     public async Task<ActionResult<ServiceResponse<List<AddUserDTO>>>> Register(GetUserDTO newUser)
     {
         return Ok(await _userService.Register(newUser));
