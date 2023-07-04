@@ -18,8 +18,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const handleClick = (productId: number) => {
-    navigate(`/product/${productId}`);
+  const handleClick = (productName: string) => {
+    navigate(`/product/${productName}`);
     onItemClick();
   };
 
@@ -46,7 +46,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     >
       {results.map((product) => (
         <div key={product.id}>
-          <div onClick={() => handleClick(product.id)}>
+          <div onClick={() => handleClick(product.name)}>
             <Box sx={{ px: 1, mx: 2, border: 'none' }}>{product.name}</Box>
           </div>
         </div>
