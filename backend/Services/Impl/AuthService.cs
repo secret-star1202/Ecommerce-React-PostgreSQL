@@ -31,33 +31,6 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
 
-    // public async Task<ServiceResponse<AddUserDTO>> Register(GetUserDTO request)
-    // {
-    //     var serviceResponse = new ServiceResponse<AddUserDTO>();
-    //     try
-    //     {
-    //         var user = _mapper.Map<User>(request);
-
-    //         string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
-
-    //         user.Email = request.Email;
-    //         user.Password = passwordHash;
-
-    //         _context.Users.Add(user);
-    //         await _context.SaveChangesAsync();
-
-    //         var dbUser = await _context.Users
-    //          .FirstOrDefaultAsync(u => u.Email == request.Email);
-    //         serviceResponse.Data = _mapper.Map<AddUserDTO>(dbUser);
-    //     }
-    //     catch (Exception ex)
-    //     {
-    //         serviceResponse.Success = false;
-    //         serviceResponse.Message = ex.Message;
-    //     }
-    //     return serviceResponse;
-    // }
-
     public async Task<ServiceResponse<AuthUserRespDTO>> Login(AuthUserReqDTO request)
     {
         var serviceResponse = new ServiceResponse<AuthUserRespDTO>();
@@ -88,8 +61,6 @@ public class AuthService : IAuthService
             serviceResponse.Message = ex.Message;
         }
        
-        
-
         return serviceResponse;
     }
 

@@ -21,13 +21,7 @@ public class AuthController : ControllerBase
         _authService = authService;
     }
 
-    // [HttpPost()]
-    // public async Task<ActionResult<ServiceResponse<AddUserDTO>>> Register(GetUserDTO request)
-    // {
-    //     return Ok(await _authService.Register(request));
-    // }
-
-    [HttpPost("login")]
+    [HttpPost()]
     public async Task<ActionResult<ServiceResponse<AuthUserRespDTO>>> Login(AuthUserReqDTO request)
     {
         return Ok(await _authService.Login(request));
