@@ -8,3 +8,10 @@ export interface Product {
   categoryName: string;
   image: string;
 }
+
+export interface SearchResultsProps {
+  filteredProducts: Product[];
+  searchTerm: string;
+  onItemClick: () => void;
+  showSearchResults: boolean;
+}

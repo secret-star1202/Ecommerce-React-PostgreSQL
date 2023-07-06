@@ -1,14 +1,7 @@
 import React from 'react';
-import { Product } from '../../types/product';
+import { SearchResultsProps } from '../../types/product';
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
-
-interface SearchResultsProps {
-  filteredProducts: Product[];
-  searchTerm: string;
-  onItemClick: () => void;
-  showSearchResults: boolean;
-}
 
 const SearchResults: React.FC<SearchResultsProps> = ({
   filteredProducts,
