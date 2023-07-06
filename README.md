@@ -27,6 +27,8 @@
 - register and login as a user
 - responsive to different screen size
 - pagination- calculates the products length for all items and for each category
+- register feature
+- login feature
 
 <img width="641" alt="Screenshot 2023-01-11 at 16 18 31" src="https://user-images.githubusercontent.com/46716968/211834754-557c81d6-0b08-4f12-b285-aa5518578f18.png">
 <img width="650" alt="Screenshot 2023-01-11 at 16 19 48" src="https://user-images.githubusercontent.com/46716968/211834776-f299e310-c555-4282-ad04-b161852911e2.png">
