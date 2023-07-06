@@ -2,9 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Services;
 using backend.Models;
 using backend.DTOs.CartItem;
-
 namespace backend.Controllers;
-
 [Route("api/v1/[controller]s")]
 public class CartItemController : ControllerBase
 {

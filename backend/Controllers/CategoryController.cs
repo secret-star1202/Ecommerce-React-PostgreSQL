@@ -3,9 +3,7 @@ using backend.Models;
 using backend.DTOs.Category;
 using backend.Services;
 using backend.DTOs.Product;
-
 namespace backend.Controllers;
-
 [ApiController]
 [Route("api/v1/Categories")]
 public class CategoryController : ControllerBase
@@ -30,13 +28,11 @@ public class CategoryController : ControllerBase
         return Ok(await _categoryService.GetCategoryById(id));
     }
 
-
     [HttpPost()]
     public async Task<ActionResult<ServiceResponse<List<AddCategoryDTO>>>> AddCategory(GetCategoryDTO newCategory)
     {
         return Ok(await _categoryService.AddCategory(newCategory));
     }
-
 
     [HttpPut()]
     public async Task<ActionResult<ServiceResponse<List<GetCategoryDTO>>>> UpdateProduct(UpdateCategoryDTO updatedCategory)
@@ -49,7 +45,6 @@ public class CategoryController : ControllerBase
 
         return Ok(response);
     }
-
 
     [HttpDelete("{id}")]
     public async Task<ActionResult<ServiceResponse<GetCategoryDTO>>> DeleteCategory(int id)

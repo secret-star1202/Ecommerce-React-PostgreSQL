@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Models;
 using backend.DTOs.Cart;
 using backend.Services;
-
 namespace backend.Controllers
 {
     [Route("api/v1/[controller]s")]

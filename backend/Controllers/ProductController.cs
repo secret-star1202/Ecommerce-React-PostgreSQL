@@ -2,14 +2,11 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Models;
 using backend.Services;
 using backend.DTOs.Product;
-
 namespace backend.Controllers;
-
 [ApiController]
 [Route("api/v1/[controller]s")]
 public class ProductController : ControllerBase
 {
-
     private readonly IProductService _productService;
 
     public ProductController(IProductService productService)
@@ -31,20 +28,17 @@ public class ProductController : ControllerBase
         return Ok(products.Data);
     }
 
-
     [HttpGet("{id}")]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> GetSingle(int id)
     {
         return Ok(await _productService.GetProductById(id));
     }
 
-
     [HttpPost()]
     public async Task<ActionResult<ServiceResponse<List<AddProductDTO>>>> AddProduct(GetProductDTO newProduct)
     {
         return Ok(await _productService.AddProduct(newProduct));
     }
-
 
     [HttpPut()]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> UpdateProduct(UpdateProductDTO updatedProduct)
@@ -57,7 +51,6 @@ public class ProductController : ControllerBase
 
         return Ok(response);
     }
-
 
     [HttpDelete("{id}")]
     public async Task<ActionResult<ServiceResponse<GetProductDTO>>> DeleteProduct(int id)
@@ -76,7 +69,6 @@ public class ProductController : ControllerBase
     {
         return Ok(await _productService.GetProductsByCategory(categoryId));
     }
-
 
     [HttpGet("pagination")]
     public async Task<ActionResult<ServiceResponse<List<GetProductDTO>>>> Pagination(int pageNumber, int pageSize)

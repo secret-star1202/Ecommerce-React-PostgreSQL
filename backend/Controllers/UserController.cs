@@ -2,9 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Models;
 using backend.Services;
 using backend.DTOs.User;
-
 namespace backend.Controllers;
-
 [ApiController]
 [Route("api/v1/[controller]s")]
 public class UserController : ControllerBase
@@ -22,7 +20,6 @@ public class UserController : ControllerBase
         var users = await _userService.GetAllUsers();
         return Ok(users.Data);
     }
-
     
     [HttpGet("{id}")]
     public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> GetSingle(int id)
@@ -30,13 +27,11 @@ public class UserController : ControllerBase
         return Ok(await _userService.GetUserById(id));
     }
 
-
     [HttpPost()]
     public async Task<ActionResult<ServiceResponse<List<AddUserDTO>>>> Register(GetUserDTO newUser)
     {
         return Ok(await _userService.Register(newUser));
     }
-
 
     [HttpPut()]
     public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> UpdateUser(UpdateUserDTO updatedUser)
@@ -50,7 +45,6 @@ public class UserController : ControllerBase
         return Ok(response);
     }
 
-
     [HttpDelete("{id}")]
     public async Task<ActionResult<ServiceResponse<GetUserDTO>>> DeleteUser(int id)
     {
@@ -62,5 +56,4 @@ public class UserController : ControllerBase
 
         return Ok(response);
     }
-
 }

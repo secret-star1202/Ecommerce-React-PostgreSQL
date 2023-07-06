@@ -9,9 +9,7 @@ namespace backend.Controllers;
 [Route("api/v1/[controller]s")]
 public class AuthController : ControllerBase
 {
-
     public static AuthUserRespDTO user = new AuthUserRespDTO();
-
     private readonly IConfiguration _configuration;
     private readonly IAuthService _authService;
 
