@@ -15,3 +15,13 @@ export interface SearchResultsProps {
   onItemClick: () => void;
   showSearchResults: boolean;
 }
+
+export interface ProductCardProps {
+  product: {
+    id: number;
+    image: string;
+    categoryName: string;
+    name: string;
+    price: number;
+  };
+}

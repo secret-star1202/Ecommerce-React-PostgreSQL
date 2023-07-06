@@ -10,16 +10,7 @@ import {
 import { useAppDispatch } from '../../hooks/reduxHook';
 import { addToCart } from '../../redux/reducers/cartSlice';
 import { useNavigate } from 'react-router-dom';
-
-interface ProductCardProps {
-  product: {
-    id: number;
-    image: string;
-    categoryName: string;
-    name: string;
-    price: number;
-  };
-}
+import { ProductCardProps } from '../../types/product';
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const dispatch = useAppDispatch();
