@@ -1,24 +1,25 @@
 import React from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
+import { registerUser } from '../../../redux/reducers/authSlice';
+import { IUserRegister } from '../../../types/auth';
+import { useAppDispatch } from '../../../hooks/reduxHook';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../hooks/reduxHook';
-import { registerUser } from '../../../redux/reducers/userSlice';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import { PageContainer, RegisterContainer } from './Register.styles';
-import { IUserRegister } from '../../../types/auth';
+import { useNavigate } from 'react-router-dom';
 
-const schema = yup
-  .object({
-    name: yup.string().required(),
-    email: yup.string().email().required(),
-    password: yup.string().min(8).max(32).required(),
-    avatar: yup.mixed().required(),
-  })
-  .required();
+const registerSchema = yup.object({
+  name: yup.string().required('Name is required'),
+  email: yup.string().email('Invalid email').required('Email is required'),
+  password: yup
+    .string()
+    .min(8, 'Password must be at least 8 characters')
+    .max(32, 'Password must not exceed 32 characters')
+    .required('Password is required'),
+});
 
-const Register = () => {
+const Register: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const {
@@ -26,12 +27,12 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IUserRegister>({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(registerSchema),
   });
-
-  const onSubmit = (data: IUserRegister) => {
+  const onSubmit = handleSubmit((data) => {
     dispatch(registerUser(data));
-  };
+    navigate('/login');
+  });
 
   return (
     <PageContainer>
@@ -52,7 +53,7 @@ const Register = () => {
         >
           <Typography variant="h4">Sign Up</Typography>
         </Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={onSubmit}>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <TextField
               variant="outlined"
@@ -81,17 +82,8 @@ const Register = () => {
               sx={{ mb: 2 }}
               type="password"
             />
-            <label>Avatar</label>
-            <TextField
-              variant="outlined"
-              type="file"
-              {...register('avatar', { required: 'Required' })}
-              error={!!errors.avatar}
-              helperText={errors.avatar ? errors.avatar.message : null}
-              sx={{ mb: 2 }}
-            />
             <Button variant="contained" type="submit">
-              Submit
+              Register
             </Button>
           </Box>
           <Box

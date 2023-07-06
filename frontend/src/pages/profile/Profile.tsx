@@ -1,11 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHook';
@@ -16,22 +9,10 @@ export const PageContainer = styled(Container)`
   height: 100vh;
 `;
 const Profile = () => {
-  const userInfo = useAppSelector((state) => state.authReducer);
-  const authInfo = useAppSelector((state) => state.authReducer);
+  const userInfo = useAppSelector((state) => state.auth);
+  const authInfo = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  const setUserImage = () => {
-    if (userInfo && userInfo.userInfo?.avatar) {
-      return (
-        <Avatar
-          alt=""
-          src={userInfo.userInfo.avatar}
-          sx={{ height: '100px', width: '100px', border: '50%' }}
-        />
-      );
-    }
-  };
 
   return (
     <PageContainer>
@@ -50,7 +31,7 @@ const Profile = () => {
               <Box>
                 <Typography variant="h5">User Information</Typography>
               </Box>
-              <Box>{setUserImage()}</Box>
+              <Box>{userInfo.userInfo?.initials}</Box>
               <Box
                 maxWidth="lg"
                 key={userInfo.userInfo?.id}
@@ -64,7 +45,7 @@ const Profile = () => {
               >
                 <TextField
                   variant="outlined"
-                  label={userInfo.userInfo?.name}
+                  label={authInfo.userInfo?.name}
                   sx={{ mb: 2 }}
                   type="text"
                   disabled

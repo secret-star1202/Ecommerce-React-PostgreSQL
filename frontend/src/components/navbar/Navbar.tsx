@@ -18,7 +18,6 @@ import {
 import { useAppSelector } from '../../hooks/reduxHook';
 import { RootState } from '../../redux/store';
 import Typography from '@mui/material/Typography';
-import { Avatar } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import { Product } from '../../types/product';
 import SearchResults from '../search/SearchResults';
@@ -61,8 +60,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
   const { cartItems } = useAppSelector((state: RootState) => state.cartReducer);
-  const authInfo = useAppSelector((state) => state.authReducer);
-  const userInfo = useAppSelector((state) => state.authReducer);
+  const authInfo = useAppSelector((state) => state.auth);
+  //const userInfo = useAppSelector((state) => state.auth);
   const [searchTerm, setSearchTerm] = useState('');
   const products = useAppSelector((state) => state.productReducer);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
@@ -97,18 +96,6 @@ const Navbar = () => {
   const handleItemClick = () => {
     setShowSearchResults(false); // Hide search results when an item is clicked
     setSearchTerm(''); //clear input field
-  };
-
-  const setUserImage = () => {
-    if (userInfo && userInfo.userInfo?.avatar) {
-      return (
-        <Avatar
-          alt=""
-          src={userInfo.userInfo.avatar}
-          sx={{ height: '25px', width: '25px', border: '50%' }}
-        />
-      );
-    }
   };
 
   const getItemsCount = () => {
@@ -187,7 +174,9 @@ const Navbar = () => {
                   alignItems: 'center',
                 }}
               >
-                <CartLink to="/profile"> {setUserImage()}</CartLink>
+                <CartLink to="/profile">
+                  <h6> fix this</h6>
+                </CartLink>
               </Box>
             ) : (
               <IconButton

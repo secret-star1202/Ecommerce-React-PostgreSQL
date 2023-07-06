@@ -1,21 +1,32 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
-import axiosInstance from '../../common/axiosInstance';
+import axios, { AxiosError } from 'axios';
 import {
   AuthCreds,
   IAuthState,
+  IUserRegister,
   ReturnedAuthCreds,
   User,
 } from '../../types/auth';
-
-export const authenticateCredentials = createAsyncThunk(
-  'authenticateCredentials',
-  async (access_token: string) => {
+import { RootState } from '../../redux/store';
+export const registerUser = createAsyncThunk(
+  'registerUser',
+  async (user: IUserRegister) => {
     try {
-      const response = await axiosInstance.post('/profile', {
-        headers: { Authorization: `Bearer${access_token}` },
-      });
-      const data: ReturnedAuthCreds = response.data;
+      // Generate initials from the user's name
+      const initials = user.name
+        .split(' ')
+        .map((name) => name[0].toUpperCase())
+        .join('');
+
+      const UserResponse = await axios.post(
+        'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/Users',
+        {
+          ...user,
+          initials: initials,
+        }
+      );
+
+      const data = UserResponse.data;
       return data;
     } catch (e) {
       const error = e as AxiosError;
@@ -25,20 +36,28 @@ export const authenticateCredentials = createAsyncThunk(
 );
 
 export const loginUser = createAsyncThunk(
-  'loginUser',
+  'auth/loginUser',
   async (credentials: AuthCreds) => {
     try {
-      const auth = await axiosInstance.post('/login', credentials);
-      const authData: ReturnedAuthCreds = auth.data;
+      const response = await axios.post(
+        'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/Auths',
+        credentials
+      );
+      const authData: ReturnedAuthCreds = response.data;
       if ('access_token' in authData && authData.access_token.length) {
         const headerConfig = {
           headers: {
-            Authorization: `bearer ${authData.access_token}`,
+            Authorization: `Bearer ${authData.access_token}`,
           },
         };
-        const response = await axiosInstance.get('/auth/profile', headerConfig);
-        const responseData: User = await response.data;
-        return responseData;
+        const userResponse = await axios.get(
+          'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/Users',
+          headerConfig
+        );
+        const userData: User = userResponse.data;
+        return userData;
+      } else {
+        throw new Error('Authentication failed'); // Change: Throw an error if authentication fails or access token is missing
       }
     } catch (e) {
       const error = e as AxiosError;
@@ -54,60 +73,44 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const logoutUser = (state: IAuthState) => {
-  return {
-    ...state,
-    error: false,
-    errorMsg: '',
-    userInfo: null,
-    loggedIn: false,
-  };
-};
-
 const initialState: IAuthState = {
   loggedIn: false,
   userInfo: null,
   error: false,
   errorMsg: '',
+  isRegistered: false,
 };
 
 export const authSlice = createSlice({
-  name: 'authSlice',
+  name: 'auth',
   initialState: initialState,
   reducers: {
     reset: () => initialState,
+    setRegistered: (state) => {
+      state.isRegistered = true;
+    },
   },
   extraReducers(builder) {
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      if (action.payload && 'error' in action.payload) {
-        state.error = action.payload.error;
-        state.errorMsg = action.payload.errorMsg;
-        state.loggedIn = false;
-        state.userInfo = null;
-        return state;
-      }
-      if (action.payload && 'id' in action.payload) {
-        console.log('there is no error');
-        const { id, email, password, name, avatar } = action.payload;
-        const userData = {
-          id,
-          email,
-          password,
-          name,
-          avatar,
-        };
-        state.error = false;
-        state.errorMsg = '';
-        state.loggedIn = true;
-        state.userInfo = userData;
-        return state;
-      } else {
-        return state;
-      }
+      const userData = action.payload as User;
+      state.loggedIn = true;
+      state.userInfo = userData;
+      state.isRegistered = true;
+      state.error = false;
+      state.errorMsg = '';
+    });
+    builder.addCase(loginUser.rejected, (state, action) => {
+      state.loggedIn = false;
+      state.userInfo = null;
+      state.isRegistered = false;
+      state.error = true;
+      state.errorMsg = action.error.message || 'Login failed';
     });
   },
 });
 
+export const { reset, setRegistered } = authSlice.actions;
 const authReducer = authSlice.reducer;
-export const { reset } = authSlice.actions;
 export default authReducer;
+
+export const selectAuthError = (state: RootState) => state.auth.error;

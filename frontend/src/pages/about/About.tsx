@@ -10,13 +10,7 @@ export const PageContainer = styled(Container)`
 `;
 
 const About = () => {
-  return (
-    <PageContainer
-      sx={{ backgroundColor: { xs: 'red', md: 'green', lg: 'blue' } }}
-    >
-      About Page
-    </PageContainer>
-  );
+  return <PageContainer>About Page</PageContainer>;
 };
 
 export default About;

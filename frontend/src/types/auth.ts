@@ -2,7 +2,7 @@ export interface IUserRegister {
   name: string;
   email: string;
   password: string;
-  avatar: FileList | string;
+  initials: string;
 }
 
 export interface AuthCreds {
@@ -19,7 +19,7 @@ export interface User {
   name: string;
   email: string;
   password: string;
-  avatar: string;
+  initials: string;
 }
 
 export interface UserState {
@@ -33,4 +33,5 @@ export interface IAuthState {
   userInfo: User | null;
   error: boolean;
   errorMsg: string;
+  isRegistered: boolean;
 }

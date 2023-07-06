@@ -11,7 +11,7 @@ export const store = configureStore({
     cartReducer,
     categoryReducer,
     userReducer,
-    authReducer,
+    auth: authReducer,
   },
 });
 

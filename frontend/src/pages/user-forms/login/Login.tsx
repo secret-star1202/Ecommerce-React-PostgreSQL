@@ -4,50 +4,47 @@ import * as yup from 'yup';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../hooks/reduxHook';
-import { useEffect, useState } from 'react';
+import { loginUser, setRegistered } from '../../../redux/reducers/authSlice';
+import { useEffect } from 'react';
 import { LoginContainer, PageContainer } from './Login.styles';
-import { loginUser } from '../../../redux/reducers/authSlice';
 
 interface ILoginInputs {
   email: string;
   password: string;
 }
 
-const schema = yup
-  .object({
-    email: yup.string().email().required(),
-    password: yup.string().min(8).max(32).required(),
-  })
-  .required();
+const loginSchema = yup.object({
+  email: yup.string().email('Invalid email').required('Email is required'),
+  password: yup.string().required('Password is required'),
+});
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const authInfo = useAppSelector((state) => state.authReducer);
-  // const usersInfo = useAppSelector((state) => state.userReducer);
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    if (authInfo.loggedIn && !authInfo.error) navigate('/');
-  }, [authInfo.loggedIn, navigate, authInfo.error]);
-
-  useEffect(() => {
-    if (!authInfo.loggedIn && authInfo.error) navigate('/login');
-  }, [authInfo.loggedIn, navigate, authInfo.error]);
+  const navigate = useNavigate();
+  const authInfo = useAppSelector((state) => state.auth);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-    resolver: yupResolver(schema),
+  } = useForm<ILoginInputs>({
+    resolver: yupResolver(loginSchema),
   });
+
+  useEffect(() => {
+    if (authInfo.loggedIn && !authInfo.error) {
+      navigate('/');
+    }
+    if (!authInfo.userInfo) {
+      dispatch(setRegistered()); // Set isRegistered to false if no user data exists
+    }
+  }, [
+    authInfo.loggedIn,
+    authInfo.error,
+    authInfo.userInfo,
+    dispatch,
+    navigate,
+  ]);
 
   const onSubmit = async (data: ILoginInputs) => {
     try {
@@ -55,7 +52,7 @@ const Login = () => {
         email: data.email,
         password: data.password,
       };
-      await dispatch(loginUser(credentials));
+      await dispatch(loginUser(credentials)).unwrap();
     } catch (e) {
       console.log(e);
     }
@@ -93,9 +90,7 @@ const Login = () => {
                 error={!!errors.email}
                 helperText={errors.email ? errors.email.message : null}
                 sx={{ mb: 2 }}
-                onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                value={email}
               />
               <TextField
                 variant="outlined"
@@ -104,9 +99,7 @@ const Login = () => {
                 error={!!errors.password}
                 helperText={errors.password ? errors.password.message : null}
                 sx={{ mb: 2 }}
-                onChange={(e) => setPassword(e.target.value)}
                 type="password"
-                value={password}
               />
               <Button variant="contained" type="submit">
                 Submit
@@ -122,7 +115,7 @@ const Login = () => {
                 mt: 2,
               }}
             >
-              <Typography variant="h6"> Don't have an account yet? </Typography>
+              <Typography variant="h6">Don't have an account yet?</Typography>
               <Button variant="text" onClick={() => navigate('/register')}>
                 Register
               </Button>
@@ -133,4 +126,5 @@ const Login = () => {
     </PageContainer>
   );
 };
+
 export default Login;
