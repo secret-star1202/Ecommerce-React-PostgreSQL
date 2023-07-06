@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.AspNetCore.Cors;
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,7 +25,6 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -78,8 +76,7 @@ else if (app.Environment.IsProduction())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-commerce API v1");
     });
 }
-
-
+.:
 app.UseCors("AllowAllOrigins");
 app.UseRouting();
 app.UseAuthentication();
