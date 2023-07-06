@@ -4,6 +4,7 @@ import {
   CardContent,
   Button,
   Typography,
+  Box,
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { breakpoints as bp } from '../../utils/layout';
@@ -69,4 +70,8 @@ export const ProductCardPrice = styled(Typography)`
   justify-content: center;
   align-items: center;
   font-size: 8px;
+`;
+
+export const CardImageContainer = styled(Box)`
+  position: relative;
 `;
