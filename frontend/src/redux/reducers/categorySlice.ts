@@ -1,14 +1,12 @@
 import { Category } from './../../types/category';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axiosInstance from '../../common/axiosInstance';
 
 export const fetchAllCategories = createAsyncThunk(
   'fetchAllCategories',
   async () => {
     try {
-      const res = await axios.get(
-        'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/categories'
-      );
+      const res = await axiosInstance.get('/categories');
       return res.data;
     } catch (error) {
       console.log(error);
@@ -20,9 +18,7 @@ export const fetchAByCategories = createAsyncThunk(
   'fetchByCategories',
   async (categoryID: number) => {
     try {
-      const res = await axios.get(
-        `https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/categories=${categoryID}products/`
-      );
+      const res = await axiosInstance.get(`/categories=${categoryID}products/`);
       return res.data;
     } catch (error) {
       console.log(error);

@@ -1,25 +1,14 @@
-import { Box, CardMedia, Pagination, Tab, Typography } from '@mui/material';
+import { Box, Pagination, Tab } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import DropdownOption from '../../components/dropdown-option/DropdownOption';
-import { useAppSelector, useAppDispatch } from '../../hooks/reduxHook';
-import { addToCart } from '../../redux/reducers/cartSlice';
-import {
-  CardImageContainer,
-  CardsWrapper,
-  ProdCard,
-  ProductCardName,
-  ProductCardPrice,
-  ProductCardButton,
-  ProductCardContent,
-  PageContainer,
-} from './Category.styles';
+import { useAppSelector } from '../../hooks/reduxHook';
+import { CardsWrapper, PageContainer } from './Category.styles';
 import { ChangeEvent, useState } from 'react';
 import { PaginationContainer } from '../shop/Shop.styles';
 import ProductCard from '../../components/product-card/ProductCard';
 
 const Category = () => {
   const products = useAppSelector((state) => state.productReducer);
-  const dispatch = useAppDispatch();
   const { category } = useParams();
   const navigate = useNavigate();
 

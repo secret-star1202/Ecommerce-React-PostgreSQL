@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import {
   AuthCreds,
   IAuthState,
@@ -8,6 +8,7 @@ import {
   User,
 } from '../../types/auth';
 import { RootState } from '../../redux/store';
+import axiosInstance from '../../common/axiosInstance';
 export const registerUser = createAsyncThunk(
   'registerUser',
   async (user: IUserRegister) => {
@@ -18,13 +19,10 @@ export const registerUser = createAsyncThunk(
         .map((name) => name[0].toUpperCase())
         .join('');
 
-      const UserResponse = await axios.post(
-        'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/Users',
-        {
-          ...user,
-          initials: initials,
-        }
-      );
+      const UserResponse = await axiosInstance.post('/Users', {
+        ...user,
+        initials: initials,
+      });
 
       const data = UserResponse.data;
       return data;
@@ -39,10 +37,7 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials: AuthCreds) => {
     try {
-      const response = await axios.post(
-        'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/Auths',
-        credentials
-      );
+      const response = await axiosInstance.post('/Auths', credentials);
       const authData: ReturnedAuthCreds = response.data;
       if ('access_token' in authData && authData.access_token.length) {
         const headerConfig = {
@@ -50,10 +45,7 @@ export const loginUser = createAsyncThunk(
             Authorization: `Bearer ${authData.access_token}`,
           },
         };
-        const userResponse = await axios.get(
-          'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/Users',
-          headerConfig
-        );
+        const userResponse = await axiosInstance.get('/Users', headerConfig);
         const userData: User = userResponse.data;
         return userData;
       } else {

@@ -1,12 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { User } from '../../types/auth';
+import axiosInstance from '../../common/axiosInstance';
 
 export const fetchUsers = createAsyncThunk('user/fetchUsers', async () => {
   try {
-    const response = await axios.get(
-      'https://ecommerce-postgresql-backend.azurewebsites.net/api/v1/Users'
-    );
+    const response = await axiosInstance.get('/Users');
     return response.data;
   } catch (error) {
     throw error;
