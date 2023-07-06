@@ -6,13 +6,9 @@ using backend.DTOs.Cart;
 using backend.DTOs.Product;
 using backend.Models;
 namespace backend.DTOs.CartItem;
-
 public class CartItemDTO
 {   
-   //public int Id { get; set; }
     public int CartId { get; set; }
     public int ProductId { get; set; }
     public int ItemQuantity { get; set; }
-    // public GetProductDTO? Product { get; set; }
-    // public CartDTO? Cart { get; set; }
 }

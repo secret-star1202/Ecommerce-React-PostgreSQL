@@ -76,7 +76,7 @@ else if (app.Environment.IsProduction())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-commerce API v1");
     });
 }
-.:
+
 app.UseCors("AllowAllOrigins");
 app.UseRouting();
 app.UseAuthentication();

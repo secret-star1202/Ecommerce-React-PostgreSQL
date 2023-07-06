@@ -1,8 +1,6 @@
 ﻿using System;
 using backend.Models;
-
 namespace backend.DTOs.Product;
-
 public class AddProductDTO: BaseModel
 {
     public string? Name { get; set; }
@@ -11,7 +9,4 @@ public class AddProductDTO: BaseModel
     public string? Image { get; set; }
     public int CategoryId { get; set; }
     public string CategoryName { get; set; }
-
 }
-
-
