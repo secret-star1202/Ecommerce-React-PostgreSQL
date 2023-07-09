@@ -6,7 +6,7 @@ export const fetchAllCategories = createAsyncThunk(
   'fetchAllCategories',
   async () => {
     try {
-      const res = await axiosInstance.get('/categories');
+      const res = await axiosInstance.get('/Categories');
       return res.data;
     } catch (error) {
       console.log(error);
@@ -18,7 +18,7 @@ export const fetchAByCategories = createAsyncThunk(
   'fetchByCategories',
   async (categoryID: number) => {
     try {
-      const res = await axiosInstance.get(`/categories=${categoryID}products/`);
+      const res = await axiosInstance.get(`/Categories=${categoryID}products/`);
       return res.data;
     } catch (error) {
       console.log(error);
