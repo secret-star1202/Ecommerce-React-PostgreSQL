@@ -23,12 +23,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
-        working-directory: D:\a\ecommerce-react-postgresql-dotnet\backend
+        run: dotnet build backend.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-        working-directory: D:\a\ecommerce-react-postgresql-dotnet\backend
+        run: dotnet publish backend.sln -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
