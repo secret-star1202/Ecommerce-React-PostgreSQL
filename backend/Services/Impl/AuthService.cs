@@ -87,6 +87,4 @@ public class AuthService : IAuthService
 
         return jwt;
     }
-
 }
-

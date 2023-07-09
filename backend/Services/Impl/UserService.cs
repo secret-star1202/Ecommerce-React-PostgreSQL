@@ -8,9 +8,7 @@ using backend.DTOs.User;
 using backend.Models;
 using Microsoft.EntityFrameworkCore;
 using BCrypt;
-
 namespace backend.Services;
-
 public class UserService : IUserService
 
 {
@@ -49,8 +47,6 @@ public class UserService : IUserService
         }
         return serviceResponse;
     }
-
-
     public async Task<ServiceResponse<List<GetUserDTO>>> GetAllUsers()
     {
         var serviceResponse = new ServiceResponse<List<GetUserDTO>>();
@@ -83,7 +79,6 @@ public class UserService : IUserService
         }
         return serviceResponse;
     }
-
     public async Task<ServiceResponse<GetUserDTO>> UpdateUser(UpdateUserDTO updatedUser)
     {
         var serviceResponse = new ServiceResponse<GetUserDTO>();
@@ -107,9 +102,7 @@ public class UserService : IUserService
             serviceResponse.Success = false;
             serviceResponse.Message = ex.Message;
         }
-
         return serviceResponse;
-
     }
 
     public async Task<ServiceResponse<List<GetUserDTO>>> DeleteUser(int id)
