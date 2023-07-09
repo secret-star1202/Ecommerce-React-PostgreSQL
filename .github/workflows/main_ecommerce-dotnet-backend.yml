@@ -54,4 +54,4 @@ jobs:
           app-name: 'ecommerce-backend2'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4B453B88FD82462A8EC3BDD145E73113 }}
-          package: .
+          package: './bin/Release/net7.0/publish'
