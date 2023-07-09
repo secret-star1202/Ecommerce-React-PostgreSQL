@@ -3,7 +3,9 @@ using backend.Models;
 using backend.DTOs.Category;
 using backend.Services;
 using backend.DTOs.Product;
+
 namespace backend.Controllers;
+
 [ApiController]
 [Route("api/v1/Categories")]
 public class CategoryController : ControllerBase

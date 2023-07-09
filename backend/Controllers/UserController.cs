@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Models;
 using backend.Services;
 using backend.DTOs.User;
+
 namespace backend.Controllers;
+
 [ApiController]
 [Route("api/v1/[controller]s")]
 public class UserController : ControllerBase

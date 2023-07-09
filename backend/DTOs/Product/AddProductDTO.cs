@@ -1,6 +1,8 @@
 ﻿using System;
 using backend.Models;
+
 namespace backend.DTOs.Product;
+
 public class AddProductDTO: BaseModel
 {
     public string? Name { get; set; }

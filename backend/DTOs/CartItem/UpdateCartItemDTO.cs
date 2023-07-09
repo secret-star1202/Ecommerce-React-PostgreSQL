@@ -1,7 +1,9 @@
 ﻿using System;
 using backend.DTOs.Product;
 using backend.DTOs.Cart;
+
 namespace backend.DTOs.CartItem;
+
 public class UpdateCartItemDTO
 {
     public int Id { get; set; }

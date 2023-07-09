@@ -2,7 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using backend.Models;
+
 namespace backend.DTOs.Product;
+
 public class UpdateProductDTO
 {
     public int Id { get; set; }

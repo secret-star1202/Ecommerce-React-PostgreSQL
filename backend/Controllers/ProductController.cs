@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Models;
 using backend.Services;
 using backend.DTOs.Product;
+
 namespace backend.Controllers;
+
 [ApiController]
 [Route("api/v1/[controller]s")]
 public class ProductController : ControllerBase

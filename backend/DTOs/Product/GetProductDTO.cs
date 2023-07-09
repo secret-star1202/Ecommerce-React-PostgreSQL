@@ -16,5 +16,3 @@ public class GetProductDTO
     public string CategoryName { get; set; }
 
 }
-
-
