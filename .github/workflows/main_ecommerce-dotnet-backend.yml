@@ -24,11 +24,11 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-        working-directory: ecommerce-react-postgresql-dotnet/backend/backend.csproj
+        working-directory: backend/backend.csproj
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-        working-directory: ecommerce-react-postgresql-dotnet/backend/backend.csproj
+        working-directory: backend/backend.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
