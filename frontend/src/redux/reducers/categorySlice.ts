@@ -32,8 +32,8 @@ const categorySlice = createSlice({
   name: 'category',
   initialState,
   reducers: {},
-  extraReducers: (build) => {
-    build.addCase(fetchAllCategories.fulfilled, (state, action) => {
+  extraReducers: (build: any) => {
+    build.addCase(fetchAllCategories.fulfilled, (state: any, action: any) => {
       console.log('categories data is fetched');
       if (action.payload && 'message' in action.payload) {
         return state;
@@ -42,11 +42,11 @@ const categorySlice = createSlice({
       }
       return action.payload;
     });
-    build.addCase(fetchAllCategories.rejected, (state, action) => {
+    build.addCase(fetchAllCategories.rejected, (state: any, action: any) => {
       console.log('error');
       return state;
     });
-    build.addCase(fetchAllCategories.pending, (state, action) => {
+    build.addCase(fetchAllCategories.pending, (state: any, action: any) => {
       console.log('loading');
       return state;
     });

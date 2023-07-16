@@ -20,20 +20,20 @@ const productSlice = createSlice({
   name: 'product',
   initialState,
   reducers: {
-    highestPriceFirst: (state) => {
-      state.sort((a, b) => (a.price > b.price ? -1 : 1));
+    highestPriceFirst: (state: any) => {
+      state.sort((a: any, b: any) => (a.price > b.price ? -1 : 1));
     },
-    lowestPriceFirst: (state) => {
-      state.sort((a, b) => (a.price < b.price ? -1 : 1));
+    lowestPriceFirst: (state: any) => {
+      state.sort((a: any, b: any) => (a.price < b.price ? -1 : 1));
     },
-    alphabetical: (state) => {
-      state.sort((a, b) => b.name.localeCompare(a.name));
+    alphabetical: (state: any) => {
+      state.sort((a: any, b: any) => b.name.localeCompare(a.name));
     },
-    alphabetical2: (state) => {
-      state.sort((a, b) => a.name.localeCompare(b.name));
+    alphabetical2: (state: any) => {
+      state.sort((a: any, b: any) => a.name.localeCompare(b.name));
     },
-    searchByName: (state, action) => {
-      const filteredProducts = state.filter((product) =>
+    searchByName: (state: any, action: any) => {
+      const filteredProducts = state.filter((product: any) =>
         product.name.toLowerCase().includes(action.payload.toLowerCase())
       );
       return {
@@ -44,8 +44,8 @@ const productSlice = createSlice({
     },
   },
 
-  extraReducers: (build) => {
-    build.addCase(fetchAllProducts.fulfilled, (state, action) => {
+  extraReducers: (build: any) => {
+    build.addCase(fetchAllProducts.fulfilled, (state: any, action: any) => {
       console.log('data is fetched');
       if (action.payload && 'message' in action.payload) {
         return state;
@@ -54,11 +54,11 @@ const productSlice = createSlice({
       }
       return action.payload;
     });
-    build.addCase(fetchAllProducts.rejected, (state, action) => {
+    build.addCase(fetchAllProducts.rejected, (state: any, action: any) => {
       console.log('error');
       return state;
     });
-    build.addCase(fetchAllProducts.pending, (state, action) => {
+    build.addCase(fetchAllProducts.pending, (state: any, action: any) => {
       console.log('loading');
       return state;
     });
