@@ -9,6 +9,7 @@ import {
   alphabetical,
   alphabetical2,
 } from '../../redux/reducers/productSlice';
+
 import { DropdownOptionButton } from './DropdownOption.styles';
 
 export default function FadeMenu() {
