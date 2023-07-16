@@ -78,12 +78,12 @@ export const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     reset: () => initialState,
-    setRegistered: (state) => {
+    setRegistered: (state: any) => {
       state.isRegistered = true;
     },
   },
-  extraReducers(builder) {
-    builder.addCase(loginUser.fulfilled, (state, action) => {
+  extraReducers(builder: any) {
+    builder.addCase(loginUser.fulfilled, (state: any, action: any) => {
       const userData = action.payload as User;
       state.loggedIn = true;
       state.userInfo = userData;
@@ -91,7 +91,7 @@ export const authSlice = createSlice({
       state.error = false;
       state.errorMsg = '';
     });
-    builder.addCase(loginUser.rejected, (state, action) => {
+    builder.addCase(loginUser.rejected, (state: any, action: any) => {
       state.loggedIn = false;
       state.userInfo = null;
       state.isRegistered = false;
