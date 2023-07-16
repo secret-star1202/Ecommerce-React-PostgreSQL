@@ -16,7 +16,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     onItemClick();
   };
 
-  const startsWithResults = filteredProducts.filter((product) =>
+  const startsWithResults = filteredProducts.filter((product: any) =>
     product.name.toLowerCase().startsWith(searchTerm.toLowerCase())
   );
 
