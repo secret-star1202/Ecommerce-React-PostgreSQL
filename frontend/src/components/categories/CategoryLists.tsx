@@ -8,7 +8,7 @@ import {
 } from './CategoryLists.styles';
 
 const CategoryLists = () => {
-  const categories = useAppSelector((state) => state.categoryReducer);
+  const categories = useAppSelector((state: any) => state.categoryReducer);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
